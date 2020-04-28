@@ -9,7 +9,7 @@ package data;
  *
  * @author juanc
  */
-public class Proveedor {
+public class Proveedor implements Comparable {
 
     private int codigoProveedor;
     private String nombreComercial;
@@ -51,5 +51,17 @@ public class Proveedor {
         }
 
     }
+
+    @Override
+    public int compareTo(Object o) {
+        Proveedor other = (Proveedor) o;
+
+        //si prev > next retorna 1
+        if (this.codigoProveedor > other.codigoProveedor) {
+            return 1;
+        }
+        return 0;
+    }
+
 
 }

@@ -138,9 +138,8 @@ public class LinkedList<T> extends estructurasLineales {
     }
 
     public void ordernar() {
-        //Crear funcionalidad acá
-
-        
+       //code here
+       
 
     }
 
