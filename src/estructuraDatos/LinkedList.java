@@ -71,14 +71,14 @@ public class LinkedList<T> extends estructurasLineales {
     }
 
     //error
-    public T buscar(T key) {
+    public Nodo<T> buscar(T key) {
 
         Nodo temp = this.head;
 
         while (temp != null) {
             if (temp.valor.equals(key)) {
                 System.out.println("Elemento encontrado: " + "[" + temp.valor + "]");
-                return (T) temp.valor;
+                return temp;
             } else {
                 temp = temp.next;
             }
@@ -130,10 +130,28 @@ public class LinkedList<T> extends estructurasLineales {
 
             }
 
-            
             this.size--;
         } else {
             System.out.println("Lista vacia");
+        }
+
+    }
+
+    public void ordernar() {
+        //ingrese su logica aqui
+
+    }
+
+    public void actualizar(T key) {
+        Nodo temp = buscar(key);
+        
+        if(temp != null){
+            //ecnontrado
+            temp.valor = key;
+            System.out.println("Elemento modificado: " + temp.valor);
+            
+        }else{
+            System.out.println("Elemento no encontrado, modificación cancelada");
         }
 
     }

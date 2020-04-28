@@ -79,7 +79,7 @@ public class Controlador {
                     Proveedor proveedorB = new Proveedor(inputbuscarCodigoProvedor, null);
 
                     ProvedoresTotales.buscar(proveedorB);
-                    
+
                     System.out.println("__________________________");
 
                     break;
@@ -91,6 +91,22 @@ public class Controlador {
 
                     break;
                 case 5:
+                    System.out.println("ACTUALIZAR INFO DE PROVEEDOR:");
+                    System.out.println("Digite en numero de proveedor a actualizar");
+                    int inputActualizarCodigoProvedor = input.nextInt();
+
+                    input.skip("\n");
+
+                    System.out.println("Digite nuevo nombre del proveedor a actualizar");
+
+                    String inputactualziarNombreProvedor = input.nextLine();
+
+                    Proveedor provedorD = new Proveedor(inputActualizarCodigoProvedor,
+                            inputactualziarNombreProvedor);
+
+                    ProvedoresTotales.actualizar(provedorD);
+
+                    System.out.println("__________________________");
 
                     break;
                 case 6:
