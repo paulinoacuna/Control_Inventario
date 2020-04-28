@@ -7,7 +7,7 @@ package estructuraDatos;
 
 /**
  *
- * @author juanc
+ * @author juanc Item<T extends Comparable<T>>
  */
 public class Nodo<T> {
 
@@ -20,5 +20,8 @@ public class Nodo<T> {
         this.next = next;
         //this.prev = null;
     }
+
+
+ 
 
 }

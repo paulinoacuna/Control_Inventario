@@ -10,6 +10,7 @@ package data;
  * @author juanc
  */
 public class Proveedor {
+
     private int codigoProveedor;
     private String nombreComercial;
 
@@ -33,5 +34,22 @@ public class Proveedor {
     public void setNombreComercial(String nombreComercial) {
         this.nombreComercial = nombreComercial;
     }
-    
+
+    @Override
+    public String toString() {
+        return codigoProveedor + " " + nombreComercial;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Proveedor other = (Proveedor) o;
+
+        if (this.codigoProveedor == other.codigoProveedor) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }

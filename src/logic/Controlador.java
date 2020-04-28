@@ -48,26 +48,46 @@ public class Controlador {
             switch (opcion) {
 
                 case 1:
-                    System.out.println("AGREGAR PROVEEDOR");
-                    System.out.println("Digite el numero NIT del proveedor");
+                    System.out.println("AGREGAR PROVEEDOR:");
+                    System.out.println("Digite el codigo del proveedor");
                     int inputCodigoProvedor = input.nextInt();
                     input.skip("\n");
-                    System.out.println("Digite la razón social provedor (nombre del proveedor)");
+                    System.out.println("Digite nombre del proveedor");
                     String inputNombreProvedor = input.nextLine();
 
-                    Proveedor newProveedor = new Proveedor(inputCodigoProvedor, inputNombreProvedor);
-                    ProvedoresTotales.agregarDelante(newProveedor);
+                    Proveedor proveedorA = new Proveedor(inputCodigoProvedor, inputNombreProvedor);
+                    ProvedoresTotales.agregarDelante(proveedorA);
                     System.out.println("Proveedor agregado !!\n");
+                    System.out.println("__________________________");
 
                     break;
                 case 2:
                     System.out.println("ELIMINAR PROVEEDOR");
-                    
+                    System.out.println("Digite el codigo del proveedor a eliminar");
+                    int inputEliminarProvedor = input.nextInt();
+
+                    Proveedor proveedorC = new Proveedor(inputEliminarProvedor, null);
+
+                    ProvedoresTotales.eliminar(proveedorC);
+
                     break;
                 case 3:
+                    System.out.println("BUSCAR PROVEEDOR:");
+                    System.out.println("Digite el codigo del proveedor a buscar");
+                    int inputbuscarCodigoProvedor = input.nextInt();
+
+                    Proveedor proveedorB = new Proveedor(inputbuscarCodigoProvedor, null);
+
+                    ProvedoresTotales.buscar(proveedorB);
+                    
+                    System.out.println("__________________________");
 
                     break;
                 case 4:
+                    System.out.println("LISTA DE PROVEEDORES:");
+                    ProvedoresTotales.consultarTodos();
+
+                    System.out.println("__________________________");
 
                     break;
                 case 5:
