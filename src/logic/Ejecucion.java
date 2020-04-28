@@ -6,7 +6,10 @@
 package logic;
 
 import baseDatos.*;
+import data.*;
+import estructuraDatos.LinkedList;
 import java.sql.*;
+import java.util.Scanner;
 
 /**
  *
@@ -18,8 +21,8 @@ public class Ejecucion {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-       
+
+       Controlador.bienvenida();
 
     }
 
