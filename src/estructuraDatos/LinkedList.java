@@ -138,19 +138,21 @@ public class LinkedList<T> extends estructurasLineales {
     }
 
     public void ordernar() {
-        //ingrese su logica aqui
+        //Crear funcionalidad acá
+
+        
 
     }
 
     public void actualizar(T key) {
         Nodo temp = buscar(key);
-        
-        if(temp != null){
+
+        if (temp != null) {
             //ecnontrado
             temp.valor = key;
             System.out.println("Elemento modificado: " + temp.valor);
-            
-        }else{
+
+        } else {
             System.out.println("Elemento no encontrado, modificación cancelada");
         }
 

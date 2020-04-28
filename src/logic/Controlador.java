@@ -111,6 +111,9 @@ public class Controlador {
                     break;
                 case 6:
 
+                    System.out.println("ORDERAR LISTA PROVEEDORES:");
+                    
+                    ProvedoresTotales.ordernar();
                     break;
                 case 7:
                     play = false;
