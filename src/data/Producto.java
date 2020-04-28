@@ -10,16 +10,18 @@ package data;
  * @author juanc
  */
 public class Producto {
-private int codigoProducto;
-private String descripcion;
-private int precioVenta;
-private int precioCompra;
-private int cantidadUnidades;
-private Categoria categoria;
-private boolean agotado;
-private double descuento=0;
 
-    public Producto(int codigoProducto, String descripcion, int precioVenta, int precioCompra, int cantidadUnidades, Categoria categoria, boolean agotado) {
+    private int codigoProducto;
+    private String descripcion;
+    private int precioVenta;
+    private int precioCompra;
+    private int cantidadUnidades;
+    private Categoria categoria;
+    private boolean agotado;
+    private double descuento = 0;
+
+    public Producto(int codigoProducto, String descripcion, int precioVenta, int precioCompra,
+            int cantidadUnidades, Categoria categoria, boolean agotado) {
         this.codigoProducto = codigoProducto;
         this.descripcion = descripcion;
         this.precioVenta = precioVenta;
@@ -27,9 +29,8 @@ private double descuento=0;
         this.cantidadUnidades = cantidadUnidades;
         this.categoria = categoria;
         this.agotado = agotado;
+        
     }
-
-
 
     public int getCodigoProducto() {
         return codigoProducto;
@@ -94,7 +95,5 @@ private double descuento=0;
     public void setDescuento(double descuento) {
         this.descuento = descuento;
     }
-    
 
 }
-

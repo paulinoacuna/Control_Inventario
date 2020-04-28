@@ -11,11 +11,15 @@ package estructuraDatos;
  */
 public class LinkedList<T> extends estructurasLineales {
 
-    private Nodo<T> head;
-    private Nodo<T> tail;
+    protected Nodo<T> head;
+    protected Nodo<T> tail;
     private int size;
-      
-    
+
+    public LinkedList() {
+        head = null;
+        tail = null;
+        this.size = 0;
+    }
 
     public int size() {
         return size;
@@ -27,22 +31,29 @@ public class LinkedList<T> extends estructurasLineales {
         } else {
             return false;
         }
-
     }
 
     //CRUD 
-    public void push(T key) {
-        
-        //revisar este metodo
-        Nodo<T> nodo = new Nodo<T>(key, this.head, this.tail);
-        this.head = nodo;
-        this.tail = nodo;
+    public void agregarDelante(T key) {
 
-        this.size++;
+        //solo ageega elementos en la cabeza
+        if ((size <= 0) && (this.head == null) && (this.tail == null)) {
+
+            this.head = new Nodo<>(key, this.head);
+            this.tail = head;
+            this.size++;
+
+        } else {
+
+            Nodo<T> newNodo = new Nodo<>(key, this.head);
+            this.head = newNodo;
+            this.size++;
+        }
 
     }
 
     public T buscar(T key) {
         return null;
     }
+
 }

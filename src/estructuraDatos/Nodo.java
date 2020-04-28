@@ -10,15 +10,15 @@ package estructuraDatos;
  * @author juanc
  */
 public class Nodo<T> {
-    
+
     T valor;
     Nodo<T> next;
-    Nodo<T> prev;
+    //private Nodo<T> prev;
 
-    public Nodo(T valor, Nodo<T> next, Nodo<T> prev) {
+    public Nodo(T valor, Nodo<T> next) {
         this.valor = valor;
         this.next = next;
-        this.prev = prev;
+        //this.prev = null;
     }
-    
+
 }
