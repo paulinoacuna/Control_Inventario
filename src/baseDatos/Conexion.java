@@ -13,7 +13,7 @@ public class Conexion {
     
     
     public Connection conex;
-    private String url = String.format("jdbc:mysql://%s:%d/%s?useSSL=false", "localhost", 3306, "controlinventario");
+    private String url = String.format("jdbc:mysql://%s:%d/%s?useSSL=false", "localhost", 3306, "controlinventario500k");
     private String user = "root";
     private String pass = "123456";
 

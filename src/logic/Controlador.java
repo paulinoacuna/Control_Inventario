@@ -56,7 +56,20 @@ public class Controlador {
                     String inputNombreProvedor = input.nextLine();
 
                     Proveedor proveedorA = new Proveedor(inputCodigoProvedor, inputNombreProvedor);
+
+                    //CALCULARA DE TIEMPO EJECUCION
+                    long TInicio4,
+                     TFin4,
+                     tiempo4;
+                    TInicio4 = System.currentTimeMillis();
+                    //inicio algoritmo
                     ProvedoresTotales.agregarDelante(proveedorA);
+                    //fin algoritmo
+                    TFin4 = System.currentTimeMillis();
+                    tiempo4 = TFin4 - TInicio4;
+                    System.out.println("Tiempo de ejecución Agregar en LinkedList en milisegundos: " + tiempo4);
+                    //FIN DE LA CALCULADORA
+
                     System.out.println("Proveedor agregado !!\n");
                     System.out.println("__________________________");
 
@@ -68,7 +81,18 @@ public class Controlador {
 
                     Proveedor proveedorC = new Proveedor(inputEliminarProvedor, null);
 
+                    //CALCULARA DE TIEMPO EJECUCION
+                    long TInicio5,
+                     TFin5,
+                     tiempo5;
+                    TInicio5 = System.currentTimeMillis();
+                    //inicio algoritmo
                     ProvedoresTotales.eliminar(proveedorC);
+                    //fin algoritmo
+                    TFin5 = System.currentTimeMillis();
+                    tiempo5 = TFin5 - TInicio5;
+                    System.out.println("Tiempo de ejecución Eliminar en LinkedList en milisegundos: " + tiempo5);
+                    //FIN DE LA CALCULADORA
 
                     break;
                 case 3:
@@ -78,14 +102,37 @@ public class Controlador {
 
                     Proveedor proveedorB = new Proveedor(inputbuscarCodigoProvedor, null);
 
+                    //CALCULARA DE TIEMPO EJECUCION
+                    long TInicio,
+                     TFin,
+                     tiempo;
+                    TInicio = System.currentTimeMillis();
+                    //inicio algoritmo
                     ProvedoresTotales.buscar(proveedorB);
+                    //fin algoritmo
+                    TFin = System.currentTimeMillis();
+                    tiempo = TFin - TInicio;
+                    System.out.println("Tiempo de ejecución Buscar en LinkedList en milisegundos: " + tiempo);
+                    //FIN DE LA CALCULADORA
 
                     System.out.println("__________________________");
 
                     break;
                 case 4:
                     System.out.println("LISTA DE PROVEEDORES:");
+
+                    //CALCULARA DE TIEMPO EJECUCION
+                    long TInicio1,
+                     TFin1,
+                     tiempo1;
+                    TInicio1 = System.currentTimeMillis();
+                    //inicio algoritmo
                     ProvedoresTotales.consultarTodos();
+                    //fin algoritmo
+                    TFin1 = System.currentTimeMillis();
+                    tiempo1 = TFin1 - TInicio1;
+                    System.out.println("Tiempo de ejecución BuscarTodos en LinkedList en milisegundos: " + tiempo1);
+                    //FIN DE LA CALCULADORA
 
                     System.out.println("__________________________");
 
@@ -104,7 +151,18 @@ public class Controlador {
                     Proveedor provedorD = new Proveedor(inputActualizarCodigoProvedor,
                             inputactualziarNombreProvedor);
 
+                    //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio2,
+                     TFin2,
+                     tiempo2;
+                    TInicio2 = System.currentTimeMillis();
+                    //inicio algoritmo
                     ProvedoresTotales.actualizar(provedorD);
+                    //fin algoritmo
+                    TFin2 = System.currentTimeMillis();
+                    tiempo2 = TFin2 - TInicio2;
+                    System.out.println("Tiempo de ejecución Actualizar elemento en LinkedList en milisegundos: " + tiempo2);
+                    //FIN DE LA CALCULADORA
 
                     System.out.println("__________________________");
 
@@ -112,8 +170,19 @@ public class Controlador {
                 case 6:
 
                     System.out.println("ORDERAR LISTA PROVEEDORES:");
-                    
+                    //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio3,
+                     TFin3,
+                     tiempo3;
+                    TInicio3 = System.currentTimeMillis();
+                    //inicio algoritmo
                     ProvedoresTotales.ordernar();
+                    //fin algoritmo
+                    TFin3 = System.currentTimeMillis();
+                    tiempo3 = TFin3 - TInicio3;
+                    System.out.println("Tiempo de ejecución Ordenar la LinkedList en milisegundos: " + tiempo3);
+                    //FIN DE LA CALCULADORA
+
                     break;
                 case 7:
                     play = false;
