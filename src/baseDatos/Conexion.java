@@ -10,7 +10,7 @@ import java.sql.*;
 
 public class Conexion {
 
-    /*
+    
     
     public Connection conex;
     private String url = String.format("jdbc:mysql://%s:%d/%s?useSSL=false", "localhost", 3306, "controlinventario");
@@ -28,7 +28,7 @@ public class Conexion {
         }
     }
     
-     */
+     
 }
 
 

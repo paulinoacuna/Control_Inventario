@@ -137,9 +137,27 @@ public class LinkedList<T> extends estructurasLineales {
 
     }
 
+    public int Compare(Object obj1, Object obj2) {
+        return obj1.toString().compareTo(obj2.toString());
+    }
+
     public void ordernar() {
-       //code here
-       
+        Nodo aux1, aux2;
+
+        aux2 = this.head;
+
+        while (aux2 != null) {
+            aux1 = aux2.next;
+            while (aux1 != null) {
+                if (Compare(aux1.valor, aux2.valor) < 0) {
+                    Object aux = aux2.valor;
+                    aux2.valor = aux1.valor;
+                    aux1.valor = aux;
+                }
+                aux1 = aux1.next;
+            }
+            aux2 = aux2.next;
+        }
 
     }
 

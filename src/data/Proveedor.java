@@ -37,7 +37,7 @@ public class Proveedor implements Comparable {
 
     @Override
     public String toString() {
-        return codigoProveedor + " " + nombreComercial;
+        return nombreComercial + " "+ codigoProveedor ;
     }
 
     @Override
