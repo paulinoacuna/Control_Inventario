@@ -35,6 +35,7 @@ public class Ejecucion {
             int counter = 1;
             int counter2 = 1;
 
+            //registros de entrada seteados, por defecto entran 100.000
             while (rs.next() && counter <= 100000) {
                 //System.out.println(rs.getInt("total"));
 
@@ -45,6 +46,7 @@ public class Ejecucion {
                 counter++;
             }
             //multiplicador de data en tiempo de ejecucion
+            //seteado a 400.000 registros más
             while (counter > 100000 && counter2 <= 400000) {
 
                 Proveedor provedorB = new Proveedor(rs.getInt("llave") + counter2, rs.getString("nombre"));
@@ -72,11 +74,7 @@ public class Ejecucion {
                     TFin = System.currentTimeMillis();
                     tiempo = TFin - TInicio;
                     System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
-                    //FIN DE LA CALCULADORA
-
-        
-        
-        java.lang.OutOfMemoryError: GC overhead limit exceeded
+            //FIN DE LA CALCULADORA
          */
     }
 
