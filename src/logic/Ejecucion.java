@@ -21,31 +21,48 @@ public class Ejecucion {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         Conexion con = new Conexion();
 
         Statement st;
         ResultSet rs;
         try {
+
             st = con.conex.createStatement();
 
             rs = st.executeQuery("select * from proveedor");
 
-            while (rs.next()) {
+            int counter = 1;
+            int counter2 = 1;
+
+            while (rs.next() && counter <= 100000) {
                 //System.out.println(rs.getInt("total"));
 
-                Proveedor provedor = new Proveedor(rs.getInt("llave"), rs.getString("nombre"));
+                Proveedor provedorA = new Proveedor(rs.getInt("llave"), rs.getString("nombre"));
 
-                Controlador.ProvedoresTotales.agregarDelante(provedor);
+                Controlador.ProvedoresTotales.agregarDelante(provedorA);
+
+                counter++;
+            }
+            //multiplicador de data en tiempo de ejecucion
+            while (counter > 100000 && counter2 <= 400000) {
+
+                Proveedor provedorB = new Proveedor(rs.getInt("llave") + counter2, rs.getString("nombre"));
+                Controlador.ProvedoresTotales.agregarDelante(provedorB);
+                counter2++;
 
             }
+
             con.conex.close();
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
+            System.out.println("No se ha logrado conectar con MySQL. Esto "
+                    + "no afecta el funcionamiento del programa");
         }
 
         Controlador.bienvenida();
-        
+
         /* //CALCULARA DE TIEMPO EJECUCION
                     long TInicio, TFin,tiempo;
                     TInicio = System.currentTimeMillis();
@@ -57,6 +74,9 @@ public class Ejecucion {
                     System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
                     //FIN DE LA CALCULADORA
 
+        
+        
+        java.lang.OutOfMemoryError: GC overhead limit exceeded
          */
     }
 

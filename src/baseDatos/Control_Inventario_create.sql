@@ -31,7 +31,7 @@ CREATE TABLE Categoria (
 -- Table: Empleado
 CREATE TABLE Empleado (
     Persona_idDocumento int NOT NULL,
-    codigoEmpleado int NOT NULL AUTO_INCREMENT,
+    codigoEmpleado int NOT NULL,
     Almacen_id int NOT NULL,
     CONSTRAINT Empleado_pk PRIMARY KEY (Persona_idDocumento)
 );
@@ -78,10 +78,11 @@ CREATE TABLE Producto (
 - descuento : double = 0';
 
 -- Table: Provedor
-CREATE TABLE Provedor (
+CREATE TABLE Proveedor (
+    llave int NOT NULL AUTO_INCREMENT,
     id int NOT NULL,
-    nombre varchar(16) NOT NULL,
-    CONSTRAINT Provedor_pk PRIMARY KEY (id)
+    nombre varchar(30) NOT NULL,
+    CONSTRAINT Provedor_pk PRIMARY KEY (llave)
 );
 
 -- Table: SubCategoria
@@ -119,7 +120,7 @@ ALTER TABLE Pedido ADD CONSTRAINT Pedido_Provedor FOREIGN KEY Pedido_Provedor (P
 
 -- Reference: Producto_Categoria (table: Producto)
 ALTER TABLE Producto ADD CONSTRAINT Producto_Categoria FOREIGN KEY Producto_Categoria (Categoria_id)
-    REFERENCES Categoria (id);
+    REFERENCES Categoria (llave);
 
 -- Reference: Producto_Pedido (table: Producto)
 ALTER TABLE Producto ADD CONSTRAINT Producto_Pedido FOREIGN KEY Producto_Pedido (Pedido_id)
