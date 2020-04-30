@@ -36,7 +36,7 @@ public class Ejecucion {
             int counter2 = 1;
 
             //registros de entrada seteados, por defecto entran 100.000
-            while (rs.next() && counter <= 100000) {
+            while (rs.next() && counter <= 10000) {
                 //System.out.println(rs.getInt("total"));
 
                 Proveedor provedorA = new Proveedor(rs.getInt("llave"), rs.getString("nombre"));
@@ -47,7 +47,7 @@ public class Ejecucion {
             }
             //multiplicador de data en tiempo de ejecucion
             //seteado a 400.000 registros más
-            while (counter > 100000 && counter2 <= 400000) {
+            while (counter > 100000 && counter2 <= 1) {
 
                 Proveedor provedorB = new Proveedor(rs.getInt("llave") + counter2, rs.getString("nombre"));
                 Controlador.ProvedoresTotales.agregarDelante(provedorB);
