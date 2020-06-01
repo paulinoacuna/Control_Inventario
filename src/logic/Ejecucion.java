@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+//Rama 2 creada Version 2.0
+
+
 package logic;
 
 import baseDatos.*;
@@ -69,7 +73,7 @@ public class Ejecucion {
                     long TInicio, TFin,tiempo;
                     TInicio = System.currentTimeMillis();
                     //inicio algoritmo
-                    ProvedoresTotales.buscar(proveedorB);
+                        ProvedoresTotales.buscar(proveedorB);
                     //fin algoritmo
                     TFin = System.currentTimeMillis();
                     tiempo = TFin - TInicio;
