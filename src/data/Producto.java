@@ -16,18 +16,18 @@ public class Producto implements Comparable {
     private int precioVenta;
     private int precioCompra;
     private int cantidadUnidades;
-    private Categoria categoria;
+    private SubCategoria subCategoria;
 
     private double descuento = 0;
 
     public Producto(int codigoProducto, String descripcion, int precioVenta, int precioCompra,
-            int cantidadUnidades, Categoria categoria) {
+            int cantidadUnidades, SubCategoria subCategoria) {
         this.codigoProducto = codigoProducto;
         this.descripcion = descripcion;
         this.precioVenta = precioVenta;
         this.precioCompra = precioCompra;
         this.cantidadUnidades = cantidadUnidades;
-        this.categoria = categoria;
+        this.subCategoria = subCategoria;
 
     }
 
@@ -47,12 +47,12 @@ public class Producto implements Comparable {
         this.descripcion = descripcion;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public SubCategoria getSubCategoria() {
+        return subCategoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setSubCategoria(SubCategoria subCategoria) {
+        this.subCategoria = subCategoria;
     }
 
     public int getPrecioVenta() {
@@ -114,8 +114,13 @@ public class Producto implements Comparable {
         //TODO: CAMBIAR METODO DE COMPARACION
         if (this.codigoProducto > other.codigoProducto) {
             return 1;
+        } else if (this.codigoProducto < other.codigoProducto) {
+            return -1;
+
         }
-        return -1;
+        return 0;
+        
+
     }
 
     @Override
@@ -123,8 +128,8 @@ public class Producto implements Comparable {
         return "Producto{" + "codigoProducto=" + codigoProducto
                 + ", descripcion=" + descripcion + ", precioVenta="
                 + precioVenta + ", precioCompra=" + precioCompra
-                + ", cantidadUnidades=" + cantidadUnidades + ", categoria="
-                + categoria + ", descuento=" + descuento + '}';
+                + ", cantidadUnidades=" + cantidadUnidades + ", SubCategoria="
+                + subCategoria + ", descuento=" + descuento + '}';
     }
 
 }

@@ -12,17 +12,47 @@ package estructuraDatos;
  */
 public class LinkedAVL<T extends Comparable> {
 
-    NodoAVL<T> root;
+    private NodoAVL<T> root;
 
-    int counter = 0; //cambiar
-    boolean hasRotated = false; //cambiar
+    //int counter = 0; //cambiar
+    private boolean hasRotated = false; //cambiar
 
     //constructor
-    public LinkedAVL() {
-        this.root = null;
+    public LinkedAVL(T key) {
+
+        this.root = new NodoAVL<>(key);
 
     }
+
+    public NodoAVL<T> getRoot() {
+        return root;
+    }
+
+    public void setRoot(NodoAVL<T> root) {
+        this.root = root;
+    }
+
+    public boolean isHasRotated() {
+        return hasRotated;
+    }
+
+    public void setHasRotated(boolean hasRotated) {
+        this.hasRotated = hasRotated;
+    }
+
     //Metods
+    public NodoAVL<T> insert(NodoAVL<T> nodo, T key) {
+        //actualiza la nueva raiz si hubo rotacion
+        NodoAVL<T> newRoot = add(nodo, key);
+
+        if (this.isHasRotated()) {
+            this.setRoot(newRoot);
+            this.setHasRotated(false);
+        }
+
+        return nodo;
+
+    }
 
     //altura
     int height(NodoAVL<T> N) {
@@ -100,7 +130,7 @@ public class LinkedAVL<T extends Comparable> {
     }
 
     //insert
-    public NodoAVL<T> insert(NodoAVL<T> nodo, T key) {
+    public NodoAVL<T> add(NodoAVL<T> nodo, T key) {
 
         if (nodo == null) {
             return (new NodoAVL<>(key));
@@ -108,13 +138,14 @@ public class LinkedAVL<T extends Comparable> {
 
         if (key.compareTo(nodo.key) < 0) { // foo > 0 param primero
 
-            nodo.setLeft(insert(nodo.getLeft(), key));
+            nodo.setLeft(add(nodo.getLeft(), key));
 
         } else if (key.compareTo(nodo.key) > 0) {
 
-            nodo.setRight(insert(nodo.getRight(), key));
+            nodo.setRight(add(nodo.getRight(), key));
 
-        } else {
+        } else if (key.equals(nodo.key)){
+            System.out.println("repetido");
 
             return nodo;
         }
@@ -146,6 +177,7 @@ public class LinkedAVL<T extends Comparable> {
         // Izquierda derecha
         if (balance > 1 && key.compareTo(nodo.getLeft().key) > 0) {
             this.hasRotated = true;
+            System.out.println("dobleright");
             nodo.setLeft(leftRotate(nodo.getLeft()));
             return rightRotate(nodo);
         }
@@ -153,6 +185,7 @@ public class LinkedAVL<T extends Comparable> {
         // Derecha Izquierda
         if (balance < -1 && key.compareTo(nodo.getRight().key) < 0) {
             this.hasRotated = true;
+            System.out.println("dobleleft");
             nodo.setRight(rightRotate(nodo.getRight()));
             return leftRotate(nodo);
         }
@@ -164,12 +197,11 @@ public class LinkedAVL<T extends Comparable> {
         if (n != null) {
             inOrder(n.getLeft());
             //TODO: enviar a jframe para visualizar
-                System.out.println(n.getKey().toString());
+            System.out.println(n.getKey().toString());
             inOrder(n.getRight());
         }
     }
-    //TODO: 
-   
-    //ELIMINAR
 
+    //TODO: 
+    //ELIMINAR
 }
