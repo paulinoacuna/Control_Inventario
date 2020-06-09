@@ -13,4 +13,5 @@ public abstract class estructurasLineales<T> {
     //TODO: ESTA CLASE NO SE ESTA USANDO
 
     Nodo<T> nodo;
+
 }
