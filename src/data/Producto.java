@@ -9,7 +9,7 @@ package data;
  *
  * @author juanc
  */
-public class Producto {
+public class Producto implements Comparable {
 
     private int codigoProducto;
     private String descripcion;
@@ -17,19 +17,18 @@ public class Producto {
     private int precioCompra;
     private int cantidadUnidades;
     private Categoria categoria;
-    private boolean agotado;
+
     private double descuento = 0;
 
     public Producto(int codigoProducto, String descripcion, int precioVenta, int precioCompra,
-            int cantidadUnidades, Categoria categoria, boolean agotado) {
+            int cantidadUnidades, Categoria categoria) {
         this.codigoProducto = codigoProducto;
         this.descripcion = descripcion;
         this.precioVenta = precioVenta;
         this.precioCompra = precioCompra;
         this.cantidadUnidades = cantidadUnidades;
         this.categoria = categoria;
-        this.agotado = agotado;
-        
+
     }
 
     public int getCodigoProducto() {
@@ -80,20 +79,52 @@ public class Producto {
         this.cantidadUnidades = cantidadUnidades;
     }
 
-    public boolean isAgotado() {
-        return agotado;
-    }
-
-    public void setAgotado(boolean agotado) {
-        this.agotado = agotado;
-    }
-
     public double getDescuento() {
         return descuento;
     }
 
     public void setDescuento(double descuento) {
         this.descuento = descuento;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Producto other = (Producto) o;
+
+        if (this.codigoProducto == other.codigoProducto) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Producto other = (Producto) o;
+
+        //si prev > next retorna 1
+        //jmmmm
+        //TODO: CAMBIAR METODO DE COMPARACION
+        if (this.codigoProducto > other.codigoProducto) {
+            return 1;
+        }
+        return -1;
+    }
+
+    @Override
+    public String toString() {
+        return "Producto{" + "codigoProducto=" + codigoProducto
+                + ", descripcion=" + descripcion + ", precioVenta="
+                + precioVenta + ", precioCompra=" + precioCompra
+                + ", cantidadUnidades=" + cantidadUnidades + ", categoria="
+                + categoria + ", descuento=" + descuento + '}';
     }
 
 }

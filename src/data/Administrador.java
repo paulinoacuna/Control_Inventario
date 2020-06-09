@@ -11,9 +11,8 @@ package data;
  */
 public class Administrador extends Empleado implements Crud {
     
-    
-    
-    
+
+    //Incluir el ingeniero en esta seccion, atributos heredados de empleado nulos
     //NOTA: EL ADMIN NO PUEDE AGREGAR INGENIERO
 
     @Override
