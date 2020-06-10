@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 //Rama 2 creada Version 2.0
-
-
 package logic;
 
 import baseDatos.*;
 import data.*;
-import estructuraDatos.LinkedList;
+import estructuraDatos.*;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -30,36 +27,61 @@ public class Ejecucion {
 
         Statement st;
         ResultSet rs;
+
+        int counter = 1;
+        int counter2 = 1;
+
+        Categoria categoria = new Categoria(1, "Lacteos");
+        SubCategoria subCategoria = new SubCategoria(1, "yogures", categoria);
+        Producto producto = new Producto(1, "boyourt oreo 250g", 2800, 2000, 14, subCategoria);
+        Producto productoW = new Producto(45, "boyourt oreo 250g", 2800, 2000, 14, subCategoria);
+
+        LinkedAVL<Producto> arbol = new LinkedAVL<>(producto);
         try {
 
             st = con.conex.createStatement();
 
-            rs = st.executeQuery("select * from proveedor");
-
-            int counter = 1;
-            int counter2 = 1;
+            rs = st.executeQuery("select * from producto");
 
             //registros de entrada seteados, por defecto entran 100.000
-            while (rs.next() && counter <= 10000) {
+            while (rs.next() && counter <= 3) {
                 //System.out.println(rs.getInt("total"));
 
-                Proveedor provedorA = new Proveedor(rs.getInt("llave"), rs.getString("nombre"));
+                //Proveedor provedorA = new Proveedor(rs.getInt("llave"), rs.getString("nombre"));
+                Producto productoA
+                        = new Producto(rs.getInt("codigoProducto"),
+                                rs.getString("descripcion"),
+                                rs.getInt("precioVenta"),
+                                rs.getInt("precioCompra"),
+                                rs.getInt("cantidadUnidades"),
+                                subCategoria);
 
-                Controlador.ProvedoresTotales.agregarDelante(provedorA);
+                //Controlador.ProvedoresTotales.agregarDelante(provedorA);
+                arbol.insert(arbol.getRoot(), productoA);
 
                 counter++;
             }
             //multiplicador de data en tiempo de ejecucion
             //seteado a 400.000 registros más
-            while (counter > 100000 && counter2 <= 1) {
+            while (counter2 <= 4000000) {
 
-                Proveedor provedorB = new Proveedor(rs.getInt("llave") + counter2, rs.getString("nombre"));
-                Controlador.ProvedoresTotales.agregarDelante(provedorB);
+                //Proveedor provedorB = new Proveedor(rs.getInt("llave") + counter2, rs.getString("nombre"));
+                Producto productoB
+                        = new Producto(rs.getInt("codigoProducto") + counter2,
+                                rs.getString("descripcion"),
+                                rs.getInt("precioVenta"),
+                                rs.getInt("precioCompra"),
+                                rs.getInt("cantidadUnidades"),
+                                subCategoria);
+
+                //Controlador.ProvedoresTotales.agregarDelante(provedorB);
+                arbol.insert(arbol.getRoot(), productoB);
                 counter2++;
 
             }
 
             con.conex.close();
+            System.out.println("MySQL conection successfully");
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -67,8 +89,21 @@ public class Ejecucion {
                     + "no afecta el funcionamiento del programa");
         }
 
-        Controlador.bienvenida();
+       // arbol.inOrder(arbol.getRoot());
 
+        //CALCULARA DE TIEMPO EJECUCION
+        long TInicio, TFin, tiempo;
+        TInicio = System.currentTimeMillis();
+        //inicio algoritmo
+        NodoAVL element = arbol.find(arbol.getRoot(), productoW);
+        System.out.println(element.getKey());
+        //fin algoritmo
+        TFin = System.currentTimeMillis();
+        tiempo = TFin - TInicio;
+        System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
+        //FIN DE LA CALCULADORA
+
+        //Controlador.bienvenida();
         /* //CALCULARA DE TIEMPO EJECUCION
                     long TInicio, TFin,tiempo;
                     TInicio = System.currentTimeMillis();

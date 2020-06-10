@@ -10,14 +10,14 @@ package data;
  * @author juanc
  */
 public class Categoria {
+
     private int codigoCategoria;
     private String nombreCategoria;
-    
 
     public Categoria(int codigoCategoria, String nombreCategoria) {
         this.codigoCategoria = codigoCategoria;
         this.nombreCategoria = nombreCategoria;
-       
+
     }
 
     public int getCodigoCategoria() {
@@ -36,7 +36,9 @@ public class Categoria {
         this.nombreCategoria = nombreCategoria;
     }
 
-    
-    
-    
+    @Override
+    public String toString() {
+        return nombreCategoria;
+    }
+
 }

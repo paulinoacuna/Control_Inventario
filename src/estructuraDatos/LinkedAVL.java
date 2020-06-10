@@ -144,8 +144,8 @@ public class LinkedAVL<T extends Comparable> {
 
             nodo.setRight(add(nodo.getRight(), key));
 
-        } else if (key.equals(nodo.key)){
-            System.out.println("repetido");
+        } else if (key.equals(nodo.key)) {
+            System.out.println("Elemento repetido");
 
             return nodo;
         }
@@ -177,7 +177,7 @@ public class LinkedAVL<T extends Comparable> {
         // Izquierda derecha
         if (balance > 1 && key.compareTo(nodo.getLeft().key) > 0) {
             this.hasRotated = true;
-            System.out.println("dobleright");
+
             nodo.setLeft(leftRotate(nodo.getLeft()));
             return rightRotate(nodo);
         }
@@ -185,7 +185,7 @@ public class LinkedAVL<T extends Comparable> {
         // Derecha Izquierda
         if (balance < -1 && key.compareTo(nodo.getRight().key) < 0) {
             this.hasRotated = true;
-            System.out.println("dobleleft");
+
             nodo.setRight(rightRotate(nodo.getRight()));
             return leftRotate(nodo);
         }

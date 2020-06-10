@@ -9,7 +9,8 @@ package data;
  *
  * @author juanc
  */
-public class SubCategoria  {
+public class SubCategoria {
+
     private int codigosubCategoria;
     private String nombresubCategoria;
     private Categoria categoria;
@@ -43,10 +44,10 @@ public class SubCategoria  {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-    
-    
-    
- 
-  
-    
+
+    @Override
+    public String toString() {
+        return nombresubCategoria + "| |" + categoria;
+    }
+
 }

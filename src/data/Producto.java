@@ -119,17 +119,16 @@ public class Producto implements Comparable {
 
         }
         return 0;
-        
 
     }
 
     @Override
     public String toString() {
-        return "Producto{" + "codigoProducto=" + codigoProducto
-                + ", descripcion=" + descripcion + ", precioVenta="
-                + precioVenta + ", precioCompra=" + precioCompra
-                + ", cantidadUnidades=" + cantidadUnidades + ", SubCategoria="
-                + subCategoria + ", descuento=" + descuento + '}';
+        return codigoProducto
+                + "| |" + descripcion + "| |"
+                + precioVenta + "| |" + precioCompra
+                + "| |" + cantidadUnidades + "| |"
+                + subCategoria + "| |" + descuento;
     }
 
 }
