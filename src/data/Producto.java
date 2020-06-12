@@ -87,6 +87,21 @@ public class Producto implements Comparable {
         this.descuento = descuento;
     }
 
+    public void aumentarStock(Producto producto) {
+
+        this.cantidadUnidades += producto.cantidadUnidades;
+
+    }
+
+    public void reducirStock(Producto producto) {
+        if (this.cantidadUnidades > 0) {
+            this.cantidadUnidades -= producto.cantidadUnidades;
+        }else{
+            System.out.println("Producto Agotado");
+        }
+
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;

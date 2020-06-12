@@ -29,7 +29,7 @@ public class Ejecucion {
         ResultSet rs;
 
         int counter = 1;
-        int counter2 = 1;
+        int counter2 = 0;
 
         Categoria categoria = new Categoria(1, "Lacteos");
         SubCategoria subCategoria = new SubCategoria(1, "yogures", categoria);
@@ -44,7 +44,7 @@ public class Ejecucion {
             rs = st.executeQuery("select * from producto");
 
             //registros de entrada seteados, por defecto entran 100.000
-            while (rs.next() && counter <= 3) {
+            while (rs.next() && counter <= 4) {
                 //System.out.println(rs.getInt("total"));
 
                 //Proveedor provedorA = new Proveedor(rs.getInt("llave"), rs.getString("nombre"));
@@ -63,7 +63,7 @@ public class Ejecucion {
             }
             //multiplicador de data en tiempo de ejecucion
             //seteado a 400.000 registros más
-            while (counter2 <= 4000000) {
+            while (counter2 <= 400) {
 
                 //Proveedor provedorB = new Proveedor(rs.getInt("llave") + counter2, rs.getString("nombre"));
                 Producto productoB
@@ -89,7 +89,37 @@ public class Ejecucion {
                     + "no afecta el funcionamiento del programa");
         }
 
-       // arbol.inOrder(arbol.getRoot());
+        LinkedStack<String> pilaA = new LinkedStack<>();
+        LinkedStack<String> pilaB = new LinkedStack<>();
+       
+        pilaA.push("401-405");
+        pilaA.push("351-400");
+        pilaA.push("301-350");
+        pilaA.push("251-300");
+        pilaA.push("201-250");
+        pilaA.push("151-200");
+        pilaA.push("101-150");
+        pilaA.push("51-100");
+        pilaA.push("1-50");
+
+        while (true) {
+            Scanner scan = new Scanner(System.in);
+            System.out.println("1. NEXT PAGE");
+            System.out.println("2. PREV PAGE");
+            int input = scan.nextInt();
+
+            if (input == 1) {
+                int[] nextArray = nextPage(pilaA, pilaB);
+                arbol.printByRange(arbol.getRoot(), nextArray[0], nextArray[1]);
+            } else {
+                int[] prevArray = prevPage(pilaA, pilaB);
+                arbol.printByRange(arbol.getRoot(), prevArray[0], prevArray[1]);
+            }
+
+        }
+
+        //arbol.inOrder(arbol.getRoot(),1,5);
+        /*
 
         //CALCULARA DE TIEMPO EJECUCION
         long TInicio, TFin, tiempo;
@@ -101,8 +131,17 @@ public class Ejecucion {
         TFin = System.currentTimeMillis();
         tiempo = TFin - TInicio;
         System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
-        //FIN DE LA CALCULADORA
 
+        NodoAVL elemento = arbol.find(arbol.getRoot(), productoW);
+
+        Producto productoEncontrado = (Producto) elemento.getKey();
+
+        productoEncontrado.reducirStock(productoW);
+
+        arbol.insert(arbol.getRoot(), productoEncontrado);
+        
+         */
+        //FIN DE LA CALCULADORA
         //Controlador.bienvenida();
         /* //CALCULARA DE TIEMPO EJECUCION
                     long TInicio, TFin,tiempo;
@@ -115,6 +154,50 @@ public class Ejecucion {
                     System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
             //FIN DE LA CALCULADORA
          */
+    }
+
+    public static int[] nextPage(LinkedStack pilaA, LinkedStack pilaB) {
+        int[] intsArray = new int[2];
+
+        if (!pilaA.isEmpty()) {
+
+            pilaB.push(pilaA.pop());
+
+            String range = (String) pilaB.top();
+
+            String[] rangeArray = range.split("-");
+
+            intsArray[0] = Integer.parseInt(rangeArray[0]);
+            intsArray[1] = Integer.parseInt(rangeArray[1]);
+
+            return intsArray;
+        } else {
+            System.out.println("No hay mas resultados");
+            return intsArray;
+        }
+
+    }
+
+    public static int[] prevPage(LinkedStack pilaA, LinkedStack pilaB) {
+        int[] intsArray = new int[2];
+
+        if (pilaB.getSize() >= 2) {
+            pilaA.push(pilaB.pop());
+
+            String range = (String) pilaB.top();
+
+            String[] rangeArray = range.split("-");
+
+            intsArray[0] = Integer.parseInt(rangeArray[0]);
+            intsArray[1] = Integer.parseInt(rangeArray[1]);
+
+            return intsArray;
+        } else {
+            //deshabilitar boton atras
+            System.out.println("No hay resultados anteriores");
+            return intsArray;
+        }
+
     }
 
 }

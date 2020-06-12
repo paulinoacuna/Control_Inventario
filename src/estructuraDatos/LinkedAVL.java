@@ -5,6 +5,8 @@
  */
 package estructuraDatos;
 
+import data.Producto;
+
 /**
  *
  * @author Thesiz
@@ -201,6 +203,37 @@ public class LinkedAVL<T extends Comparable> {
             inOrder(n.getRight());
         }
     }
+
+    public void printByRange(NodoAVL<T> root, int k1, int k2) {
+
+        if (null == root) {
+            return;
+        }
+
+        //comprovar si tengo en el arbol productos
+        if (root.getKey().getClass() == Producto.class) {
+
+            Producto producto = (Producto) root.getKey();
+
+            if (k1 < producto.getCodigoProducto()) {
+                printByRange(root.getLeft(), k1, k2);
+            }
+
+            if (k1 <= producto.getCodigoProducto() && k2 >= producto.getCodigoProducto()) {
+                System.out.println(root.getKey());
+            }
+
+            if (k2 > producto.getCodigoProducto()) {
+                printByRange(root.getRight(), k1, k2);
+            }
+
+        } else {
+            System.out.println("Arbol no es de productos");
+
+        }
+    }
+    
+    
 
     //TODO: 
     //ELIMINAR
