@@ -5,7 +5,7 @@
  */
 package interfazGrafica;
 
-
+import baseDatos.Conexion;
 import data.Producto;
 import data.SubCategoria;
 import estructuraDatos.LinkedAVL;
@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import logic.Controlador;
+import logic.Paginador;
+import static logic.Paginador.nextPage;
 
 /**
  *
@@ -21,13 +24,22 @@ import javax.swing.table.TableColumn;
  */
 public class OrdenCompra extends javax.swing.JFrame {
 
+    boolean rowCreated;
+    DefaultTableModel M;
+    DefaultTableModel N;
+
     /**
      * Creates new form OrdenCompra
      */
     public OrdenCompra() {
         initComponents();
-        crearmodelo();
-      
+        crearmodelo1();
+        crearmodelo2();
+        //crearmodelo(N, jTable2);
+        Conexion.cargarBaseDatos();
+        Paginador.cargarPilas();
+        rowCreated = false;
+
     }
 
     /**
@@ -45,12 +57,14 @@ public class OrdenCompra extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        cod = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,16 +97,16 @@ public class OrdenCompra extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Agregar orden");
+        jButton3.setText("Agregar Producto");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        cod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                codActionPerformed(evt);
             }
         });
 
@@ -108,24 +122,42 @@ public class OrdenCompra extends javax.swing.JFrame {
         });
 
         jButton5.setText(">");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("<");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jTable2.setShowHorizontalLines(false);
+        jTable2.setShowVerticalLines(false);
+        jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addGap(46, 46, 46)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,99 +166,206 @@ public class OrdenCompra extends javax.swing.JFrame {
                         .addGap(18, 18, 18))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)))
+                .addComponent(jButton4)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
-                .addGap(4, 4, 4))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(44, 44, 44)
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton5)
+                            .addComponent(jButton6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addGap(199, 199, 199))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//mostrar         // TODO add your handling code here:
+
+        Paginador.vaciarPilas();
+        Paginador.cargarPilas();
+
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+
+        }
+        Paginador.counter = 0;
+        int[] nextArray = nextPage(Paginador.pilaA, Paginador.pilaB);
+
+        Controlador.ArbolProductosTotales.printByRange(Controlador.ArbolProductosTotales.getRoot(), nextArray[0], nextArray[1]);
+
+        Object[] elements = Paginador.currentPage;
+        Object[] o = null;
+
+        for (int i = 0; i < elements.length; i++) {
+
+            Producto p = (Producto) elements[i];
+
+            M.addRow(o);
+            M.setValueAt(p.getCodigoProducto(), i, 2);
+            M.setValueAt(p.getDescripcion(), i, 3);
+
+            M.setValueAt(p.getPrecioCompra(), i, 4);
+            M.setValueAt(p.getPrecioVenta(), i, 5);
+
+            M.setValueAt(p.getCantidadUnidades(), i, 6);
+            M.setValueAt(p.getDescuento(), i, 7);
+        }
+        addCheckBox(0, 1, jTable1); //repair
+        rowCreated = true;
+
+        //  "Seleccionar","Cantidad A Comprar", "codigo", "Descripcion", "Precio compra", "Precio Venta", "Existencias","Descuento"}) {
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void codActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_codActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-this.setVisible(false);        // TODO add your handling code here:
+        this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-// crear linkedlist de productos
-               // añadir productos seleccionados a la linkedlist
-        for (int i=0;i<jTable1.getRowCount();i++)
-        {
-        if (IsSelected(i,0,jTable1)){
-          /*  Add((find(jTable1.getValueAt(i, 1)));*/
-        System.out.println(jTable1.getValueAt(i, 1));
-        
-        //Producto productoA= new Producto(jTable1.getValueAt(i, 1),jTable1.getValueAt(i, 2),jTable1.getValueAt(i, 3),jTable1.getValueAt(i, 4),jTable1.getValueAt(i, 5),subCategoria);
-       // arbol.insert(arbol.getRoot(), productoA);
-       
-        }
-        }
+
         // añadir linkedlist al arbol de pedidos static  
+        // crear linkedlist de productos
+        // añadir productos seleccionados a la linkedlist
+        int count = 0;
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            if (IsSelected(i, 0, jTable1)) {
+                /*  Add((find(jTable1.getValueAt(i, 1)));*/
+                //System.out.println(jTable1.getValueAt(i, 1));
+
+                Object[] o = null;
+                N.addRow(o);
+
+                N.setValueAt(jTable1.getValueAt(i, 2), count, 2);
+                N.setValueAt(jTable1.getValueAt(i, 3), count, 3);
+
+                N.setValueAt(jTable1.getValueAt(i, 4), count, 4);
+                N.setValueAt(jTable1.getValueAt(i, 5), count, 5);
+
+                N.setValueAt(jTable1.getValueAt(i, 6), count, 6);
+                N.setValueAt(jTable1.getValueAt(i, 7), count, 7);
+                count++;
+
+                addCheckBox(0, 1, jTable2);
+
+                //Producto productoA= new Producto(jTable1.getValueAt(i, 1),jTable1.getValueAt(i, 2),jTable1.getValueAt(i, 3),jTable1.getValueAt(i, 4),jTable1.getValueAt(i, 5),subCategoria);
+                // arbol.insert(arbol.getRoot(), productoA);
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+        }
+
+        if (cod.getText() == null) {
+            //TODO:  REPARAR VALIDACION SE ESTA USANDO ESTA CONDICIONAL 
+            System.out.println("No hay elemento a buscar");
+
+        } else {
+
+            int codigoProducto = Integer.parseInt(cod.getText());
+            Producto p = new Producto(codigoProducto, null, 0, 0, 0, null);
+
+            //Object[] elements = new Object[1];
+            Producto temp = (Producto) Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
+            //elements[0] = temp;
+            Object[] o = null;
+
+            M.addRow(o);
+            M.setValueAt(temp.getCodigoProducto(), 0, 2);
+            M.setValueAt(temp.getDescripcion(), 0, 3);
+
+            M.setValueAt(temp.getPrecioCompra(), 0, 4);
+            M.setValueAt(temp.getPrecioVenta(), 0, 5);
+
+            M.setValueAt(temp.getCantidadUnidades(), 0, 6);
+            M.setValueAt(temp.getDescuento(), 0, 7);
+
+            addCheckBox(0, 1, jTable1);
+            rowCreated = true;
+        }
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-          
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -257,16 +396,32 @@ this.setVisible(false);        // TODO add your handling code here:
             }
         });
     }
-DefaultTableModel M;
-    private void crearmodelo(){
-    try{
-    M= (new DefaultTableModel(null, new String[]{
-    "Seleccionar","codigo","Descripcion","Precio compra","Precio Venta","Cantidad"}){});
-   jTable1.setModel(M);
-    }catch (Exception e){
-    JOptionPane.showMessageDialog(null,"error");  
-    }}
-   /* public DefaultTableModel mostrarDatos(){
+
+    private void crearmodelo1() {
+        try {
+            M = (new DefaultTableModel(null, new String[]{
+                "Seleccionar", "Cantidad A Comprar", "codigo",
+                "Descripcion", "Precio compra", "Precio Venta", "Existencias", "Descuento"}) {
+            });
+            jTable1.setModel(M);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error");
+        }
+    }
+
+    private void crearmodelo2() {
+        try {
+            N = (new DefaultTableModel(null, new String[]{
+                "Seleccionar", "Cantidad A Comprar", "codigo",
+                "Descripcion", "Precio compra", "Precio Venta", "Existencias", "Descuento"}) {
+            });
+            jTable2.setModel(N);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error");
+        }
+    }
+
+    /* public DefaultTableModel mostrarDatos(){
     this.validate();
 crearmodelo();
 Object o[]=null;
@@ -303,20 +458,22 @@ for(int i=0;i<usuariosBusqueda.size ();i++){
 }
 return M;
     }*/
-    public void addCheckBox(int column,int column1, JTable table){
-TableColumn tc= table.getColumnModel().getColumn(column);
-TableColumn tr= table.getColumnModel().getColumn(column1);
-tc.setCellEditor(table.getDefaultEditor(Boolean.class));
-tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
-tr.setCellEditor(table.getDefaultEditor(TextField.class));
-tr.setCellRenderer(table.getDefaultRenderer(TextField.class));
+    public void addCheckBox(int column, int column1, JTable table) {
+        TableColumn tc = table.getColumnModel().getColumn(column);
+        TableColumn tr = table.getColumnModel().getColumn(column1);
+        tc.setCellEditor(table.getDefaultEditor(Boolean.class));
+        tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
+        tr.setCellEditor(table.getDefaultEditor(TextField.class));
+        tr.setCellRenderer(table.getDefaultRenderer(TextField.class));
 
     }
-    public Boolean IsSelected(int row,int colum,JTable table){
-    return table.getValueAt(row, colum)!=null;
-    
+
+    public Boolean IsSelected(int row, int colum, JTable table) {
+        return table.getValueAt(row, colum) != null;
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cod;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -327,7 +484,8 @@ tr.setCellRenderer(table.getDefaultRenderer(TextField.class));
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,7 +25,6 @@ public class Busqueda extends javax.swing.JFrame {
 
     boolean rowCreated;
 
-    
     public Busqueda() {
         initComponents();
         crearmodelo();
@@ -208,6 +207,7 @@ public class Busqueda extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // llamar mostrar rango Controlador.ProductosTotales.mostrarrango;
+
         Paginador.vaciarPilas();
         Paginador.cargarPilas();
 
@@ -282,7 +282,7 @@ public class Busqueda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.out.println(cod.getText());
+        //System.out.println(cod.getText());
 
         if (rowCreated) {
             for (int i = M.getRowCount() - 1; i >= 0; i--) {
@@ -293,7 +293,7 @@ public class Busqueda extends javax.swing.JFrame {
         }
 
         if (cod.getText() == null) {
-            //TODO:  REPARAR VALIDACIONNO SE ESTA USANDO ESTA CONDICIONAL 
+            //TODO:  REPARAR VALIDACION SE ESTA USANDO ESTA CONDICIONAL 
             System.out.println("No hay elemento a buscar");
 
         } else {
@@ -304,8 +304,9 @@ public class Busqueda extends javax.swing.JFrame {
             Object[] elements = new Object[1];
             Producto temp = (Producto) Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
             elements[0] = temp;
+            Object[] o = null;
 
-            M.addRow(elements);
+            M.addRow(o);
             M.setValueAt(temp.getCodigoProducto(), 0, 0);
             M.setValueAt(temp.getDescripcion(), 0, 1);
             M.setValueAt(temp.getPrecioVenta(), 0, 2);
