@@ -6,6 +6,7 @@
 package estructuraDatos;
 
 import data.Producto;
+import logic.Paginador;
 
 /**
  *
@@ -15,15 +16,23 @@ import data.Producto;
 public class LinkedAVL<T extends Comparable> {
 
     private NodoAVL<T> root;
+    private int size = 0;
 
-    //int counter = 0; //cambiar
-    private boolean hasRotated = false; //cambiar
+    private boolean hasRotated = false;
 
     //constructor
     public LinkedAVL(T key) {
 
         this.root = new NodoAVL<>(key);
+        this.size = 1;
+    }
 
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public NodoAVL<T> getRoot() {
@@ -135,7 +144,9 @@ public class LinkedAVL<T extends Comparable> {
     public NodoAVL<T> add(NodoAVL<T> nodo, T key) {
 
         if (nodo == null) {
+            this.size++;
             return (new NodoAVL<>(key));
+
         }
 
         if (key.compareTo(nodo.key) < 0) { // foo > 0 param primero
@@ -200,6 +211,8 @@ public class LinkedAVL<T extends Comparable> {
             inOrder(n.getLeft());
             //TODO: enviar a jframe para visualizar
             System.out.println(n.getKey().toString());
+
+            //System.out.println(n.getKey().toString());
             inOrder(n.getRight());
         }
     }
@@ -220,7 +233,8 @@ public class LinkedAVL<T extends Comparable> {
             }
 
             if (k1 <= producto.getCodigoProducto() && k2 >= producto.getCodigoProducto()) {
-                System.out.println(root.getKey());
+                Paginador.currentPage[Paginador.counter] = root.getKey();
+                Paginador.counter++;
             }
 
             if (k2 > producto.getCodigoProducto()) {
@@ -231,9 +245,8 @@ public class LinkedAVL<T extends Comparable> {
             System.out.println("Arbol no es de productos");
 
         }
+
     }
-    
-    
 
     //TODO: 
     //ELIMINAR
