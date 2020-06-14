@@ -28,8 +28,6 @@ public class Busqueda extends javax.swing.JFrame {
     public Busqueda() {
         initComponents();
         crearmodelo();
-        Conexion.cargarBaseDatos();
-        Paginador.cargarPilas();
         rowCreated = false;
         //control booleano
 

@@ -4,10 +4,13 @@
  * and open the template in the editor.
  */
 package interfazGrafica;
+
+import baseDatos.Conexion;
 import interfazGrafica.Busqueda;
 import interfazGrafica.OrdenVenta;
 import interfazGrafica.RecibirCompra;
 import interfazGrafica.RealizarVenta;
+import logic.Paginador;
 
 /**
  *
@@ -20,6 +23,8 @@ public class Usuario extends javax.swing.JFrame {
      */
     public Usuario() {
         initComponents();
+        Conexion.cargarBaseDatos();
+        Paginador.cargarPilas();
     }
 
     /**
@@ -128,34 +133,33 @@ public class Usuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-Busqueda busqueda= new Busqueda();
+        Busqueda busqueda = new Busqueda();
         busqueda.setVisible(true);
-        
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        OrdenCompra ordencompra=new OrdenCompra();
+        OrdenCompra ordencompra = new OrdenCompra();
         ordencompra.setVisible(true);
-        
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       OrdenVenta ordenventa=new OrdenVenta();
-       ordenventa.setVisible(true);
+        OrdenVenta ordenventa = new OrdenVenta();
+        ordenventa.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-      RealizarVenta venta=new RealizarVenta();
-      venta.setVisible(true);
-      
-      
+        RealizarVenta venta = new RealizarVenta();
+        venta.setVisible(true);
+
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       RecibirCompra realizarcompra=new RecibirCompra();
-       realizarcompra.setVisible(true);
+        RecibirCompra realizarcompra = new RecibirCompra();
+        realizarcompra.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

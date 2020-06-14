@@ -47,7 +47,7 @@ public class SubCategoria {
 
     @Override
     public String toString() {
-        return nombresubCategoria + "| |" + categoria;
+        return nombresubCategoria;
     }
 
 }

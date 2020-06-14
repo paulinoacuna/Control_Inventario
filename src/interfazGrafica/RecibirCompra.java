@@ -5,9 +5,15 @@
  */
 package interfazGrafica;
 
+import data.Pedido;
+import data.Producto;
+import data.SubCategoria;
+import estructuraDatos.Nodo;
+import estructuraDatos.NodoAVL;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import logic.Controlador;
 
 /**
  *
@@ -15,12 +21,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RecibirCompra extends javax.swing.JFrame {
 
+    boolean rowCreated;
+
     /**
      * Creates new form RealizarCompra
      */
     public RecibirCompra() {
         initComponents();
         crearmodelo();
+        rowCreated = false;
     }
 
     /**
@@ -36,7 +45,7 @@ public class RecibirCompra extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        cod = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -99,7 +108,7 @@ public class RecibirCompra extends javax.swing.JFrame {
                         .addGap(216, 216, 216)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1))
+                            .addComponent(cod))
                         .addGap(88, 88, 88)
                         .addComponent(jButton1)
                         .addGap(41, 41, 41)
@@ -120,7 +129,7 @@ public class RecibirCompra extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
@@ -144,37 +153,73 @@ public class RecibirCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-/*for (int i=0;i<jTable1.getRowCount();i++)
-        {
-        producto= (jTable1.getValueAt(i, 1),..,...,...);
-        Controlador.productosTotales.insert()
-    }      */  
+
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            Producto p = new Producto(Integer.parseInt(jTable1.getValueAt(i, 0).toString()),
+                    jTable1.getValueAt(i, 1).toString(),
+                    Integer.parseInt(jTable1.getValueAt(i, 3).toString()),
+                    Integer.parseInt(jTable1.getValueAt(i, 2).toString()),
+                    Integer.parseInt(jTable1.getValueAt(i, 4).toString()),
+                    (SubCategoria) jTable1.getValueAt(i, 5));
+
+            //aumentar stock
+            //Controlador.ArbolProductosTotales.insert(Controlador.ArbolProductosTotales.getRoot(), p);
+            Producto actual = Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
+
+            actual.aumentarStock(p);
+
+            Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).setKey(actual);
+
+        }
+
+        int codigoPedido = Integer.parseInt(cod.getText());
+        Pedido pedido = new Pedido(codigoPedido);
+
+        //crear historial de ordenes recibidas, mover el pedido a lista de historial
+        System.out.println("Pedido Recibido!");
+        System.out.println("Stock Actualizado!");
+        Controlador.PedidosTotales.eliminar(pedido);
+        System.out.println("Pedido Noº: " + pedido.getCodigoPedido() + " Eliminado!");
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-this.setVisible(false);        // TODO add your handling code here:
+        this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // find arbol pedido
-        // retornar nodo
-        // retornar key
-        // retornar lista productos
-        // añadir lista a M
-        /*for(int i=0;i<Datos.size ();i++){
-    Object o[]=null;
-    Usuario c= (Usuario) Datos.get(i);
-    M.addRow(o); 
-    M.setValueAt(c.getNombres(),i,0);
-    M.setValueAt(c.getApellidos(),i,1);
-    M.setValueAt(c.getSexo(),i,2);
-    M.setValueAt(c.getCedula(),i,3);
-    M.setValueAt(c.getCiudad(),i,4);
-    M.setValueAt(c.getCategoria(),i,5);
-    M.setValueAt(c.getCelular(),i,6);
-    M.setValueAt(c.getDescripcion(),i,7);
-}    }                 */
-        
+
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+
+        }
+
+        int codigoPedido = Integer.parseInt(cod.getText());
+        Pedido pedido = new Pedido(codigoPedido);
+        Nodo<Pedido> nodo = Controlador.PedidosTotales.buscar(pedido);
+        ArrayList<Producto> listaP = nodo.getValor().getListaProductos();
+
+        Object[] o = null;
+
+        for (int i = 0; i < listaP.size(); i++) {
+            Producto p = (Producto) listaP.get(i);
+
+            M.addRow(o);
+            M.setValueAt(p.getCodigoProducto(), i, 0);
+            M.setValueAt(p.getDescripcion(), i, 1);
+            M.setValueAt(p.getPrecioCompra(), i, 2);
+            M.setValueAt(p.getPrecioVenta(), i, 3);
+            M.setValueAt(p.getCantidadUnidades(), i, 4);
+            M.setValueAt(p.getSubCategoria(), i, 5);
+
+            //  "codigo", "Descripcion", "Precio compra", "Precio Venta", "Cantidad Recibida"
+        }
+        rowCreated = true;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -215,15 +260,18 @@ this.setVisible(false);        // TODO add your handling code here:
         });
     }
     DefaultTableModel M;
-     private void crearmodelo(){
-    try{
-    M= (new DefaultTableModel(null, new String[]{
-    "codigo","Descripcion","Precio compra","Precio Venta","Cantidad"}){});
-   jTable1.setModel(M);
-    }catch (Exception e){
-    JOptionPane.showMessageDialog(null,"error");  
-    }}
-   /* public DefaultTableModel mostrarDatos(){
+
+    private void crearmodelo() {
+        try {
+            M = (new DefaultTableModel(null, new String[]{
+                "codigo", "Descripcion", "Precio compra", "Precio Venta", "Cantidad Recibida", "SubCategoria"}) {
+            });
+            jTable1.setModel(M);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error");
+        }
+    }
+    /* public DefaultTableModel mostrarDatos(){
     this.validate();
 crearmodelo();
 Object o[]=null;
@@ -262,6 +310,7 @@ return M;
     }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cod;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -271,6 +320,5 @@ return M;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
