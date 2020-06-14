@@ -10,6 +10,7 @@ import interfazGrafica.Busqueda;
 import interfazGrafica.OrdenVenta;
 import interfazGrafica.RecibirCompra;
 import interfazGrafica.RealizarVenta;
+import logic.Controlador;
 import logic.Paginador;
 
 /**
@@ -23,7 +24,36 @@ public class Usuario extends javax.swing.JFrame {
      */
     public Usuario() {
         initComponents();
-        Conexion.cargarBaseDatos();
+           //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio3,
+                     TFin3,
+                     tiempo3;
+                    TInicio3 = System.currentTimeMillis();
+                    //inicio algoritmo
+                        Conexion.cargarBaseDatos();
+                    //fin algoritmo
+                    TFin3 = System.currentTimeMillis();
+                    tiempo3 = TFin3 - TInicio3;
+                    System.out.println("Tiempo ms LinkedAVL<Producto> | op: Insert() " + tiempo3);
+                //FIN DE LA CALCULADORA
+                
+                
+         //TESTING INORDER
+            //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio1,
+                     TFin1,
+                     tiempo1;
+                    TInicio1 = System.currentTimeMillis();
+                    //inicio algoritmo
+                            //   Controlador.ArbolProductosTotales.inOrder(Controlador.ArbolProductosTotales.getRoot());
+                       
+                    //fin algoritmo
+                    TFin1 = System.currentTimeMillis();
+                    tiempo1 = TFin1 - TInicio1;
+                    System.out.println("Tiempo ms LinkedAVL<Producto> | op: InOrder() " + tiempo1);
+                //FIN DE LA CALCULADORA
+         
+        
         Paginador.cargarPilas();
     }
 

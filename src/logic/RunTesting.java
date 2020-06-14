@@ -15,7 +15,20 @@ import estructuraDatos.*;
 public class RunTesting {
 
     public static void main(String[] args) {
-
+        /*
+                //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio3,
+                     TFin3,
+                     tiempo3;
+                    TInicio3 = System.currentTimeMillis();
+                    //inicio algoritmo
+                        //STATEMENT
+                    //fin algoritmo
+                    TFin3 = System.currentTimeMillis();
+                    tiempo3 = TFin3 - TInicio3;
+                    System.out.println("Tiempo de ejecución Ordenar la LinkedList en milisegundos: " + tiempo3);
+                //FIN DE LA CALCULADORA
+*/
 
     }
 

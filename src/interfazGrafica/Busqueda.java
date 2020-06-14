@@ -300,7 +300,29 @@ public class Busqueda extends javax.swing.JFrame {
             Producto p = new Producto(codigoProducto, null, 0, 0, 0, null);
 
             Object[] elements = new Object[1];
-            Producto temp = (Producto) Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
+            
+            
+            
+            
+            
+              //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio3,
+                     TFin3,
+                     tiempo3;
+                    TInicio3 = System.currentTimeMillis();
+                    //inicio algoritmo
+                         Producto temp = (Producto) Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
+                    //fin algoritmo
+                    TFin3 = System.currentTimeMillis();
+                    tiempo3 = TFin3 - TInicio3;
+                    System.out.println("Tiempo ms LinkedAVL<Producto> | op: Find() " + tiempo3);
+                //FIN DE LA CALCULADORA
+            
+
+                
+                
+                
+            
             elements[0] = temp;
             Object[] o = null;
 

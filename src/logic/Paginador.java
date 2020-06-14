@@ -13,7 +13,7 @@ import estructuraDatos.LinkedStack;
  */
 public class Paginador {
 
-    public static Object[] currentPage = new Object[50];
+    public static Object[] currentPage = new Object[200];
     public static int counter = 0;
 
     public static LinkedStack<String> pilaA = new LinkedStack<>();
@@ -21,14 +21,33 @@ public class Paginador {
 
     public static void cargarPilas() {
 
-        int size = Controlador.ArbolProductosTotales.getSize(); //450
+        int size = Controlador.ArbolProductosTotales.getSize(); //450, 10000
 
         while (size > 1) {
 
             int max = size; //50
-            size = size - 49; //1
+            size = size - 199; //1
 
-            pilaA.push(String.valueOf(size) + "-" + String.valueOf(max));
+            
+            
+              //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio3,
+                     TFin3,
+                     tiempo3;
+                    TInicio3 = System.currentTimeMillis();
+                    //inicio algoritmo
+                       pilaA.push(String.valueOf(size) + "-" + String.valueOf(max));
+                    //fin algoritmo
+                    TFin3 = System.currentTimeMillis();
+                    tiempo3 = TFin3 - TInicio3;
+                    System.out.println("Tiempo ms LinkedStack<String> | op: Push() " + tiempo3);
+                //FIN DE LA CALCULADORA
+            
+            
+
+            
+            
+            
             size--;
 
         }
@@ -56,8 +75,23 @@ public class Paginador {
 
         if (!pilaA.isEmpty()) {
 
-            pilaB.push(pilaA.pop());
+             //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio3,
+                     TFin3,
+                     tiempo3;
+                    TInicio3 = System.currentTimeMillis();
+                    //inicio algoritmo
+                       Object value = pilaA.pop();
+                    //fin algoritmo
+                    TFin3 = System.currentTimeMillis();
+                    tiempo3 = TFin3 - TInicio3;
+                    System.out.println("Tiempo ms LinkedStack<String> | op: Pop() " + tiempo3);
+                //FIN DE LA CALCULADORA
+                
+                
+            pilaB.push(value);
 
+            
             String range = (String) pilaB.top();
 
             String[] rangeArray = range.split("-");
@@ -79,7 +113,20 @@ public class Paginador {
         if (pilaB.getSize() >= 2) {
             pilaA.push(pilaB.pop());
 
-            String range = (String) pilaB.top();
+            
+             //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio3,
+                     TFin3,
+                     tiempo3;
+                    TInicio3 = System.currentTimeMillis();
+                    //inicio algoritmo
+                       String range = (String) pilaB.top();
+                    //fin algoritmo
+                    TFin3 = System.currentTimeMillis();
+                    tiempo3 = TFin3 - TInicio3;
+                    System.out.println("Tiempo ms LinkedStack<String> | op: top() " + tiempo3);
+                //FIN DE LA CALCULADORA
+           
 
             String[] rangeArray = range.split("-");
 

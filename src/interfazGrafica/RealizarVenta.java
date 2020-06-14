@@ -164,7 +164,22 @@ public class RealizarVenta extends javax.swing.JFrame {
 
         if (!Controlador.ColaDeVentas.isEmpty()) {
 
-            CarritoVenta venta = Controlador.ColaDeVentas.getFront();
+            
+            //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio3,
+                     TFin3,
+                     tiempo3;
+                    TInicio3 = System.currentTimeMillis();
+                    //inicio algoritmo
+                       CarritoVenta venta = Controlador.ColaDeVentas.getFront();
+                    //fin algoritmo
+                    TFin3 = System.currentTimeMillis();
+                    tiempo3 = TFin3 - TInicio3;
+                    System.out.println("Tiempo ms LinkedQueue<CarritoCompra> | op: getFront() " + tiempo3);
+                //FIN DE LA CALCULADORA
+            
+            
+            
 
             for (int i = 0; i < venta.getListaProductos().size(); i++) {
                 Object o[] = null;
@@ -207,7 +222,31 @@ public class RealizarVenta extends javax.swing.JFrame {
             //crear historial de ventas, mover el pedido a lista de historial
             System.out.println("Venta realizada!");
             System.out.println("Stock Actualizado!");
-            CarritoVenta venta = Controlador.ColaDeVentas.dequeue();
+            
+            
+            
+            
+             //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio3,
+                     TFin3,
+                     tiempo3;
+                    TInicio3 = System.currentTimeMillis();
+                    //inicio algoritmo
+                       CarritoVenta venta = Controlador.ColaDeVentas.dequeue();
+                    //fin algoritmo
+                    TFin3 = System.currentTimeMillis();
+                    tiempo3 = TFin3 - TInicio3;
+                    System.out.println("Tiempo ms LinkedQueue<CarritoCompra> | op: dequeue() " + tiempo3);
+                //FIN DE LA CALCULADORA
+        
+            
+            
+            
+            
+            
+            
+            
+            
             System.out.println("Venta Noº: " + venta.getCodigoVenta() + " Realizada!");
 
             for (int i = M.getRowCount() - 1; i >= 0; i--) {

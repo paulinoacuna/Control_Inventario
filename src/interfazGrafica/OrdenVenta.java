@@ -293,7 +293,27 @@ public class OrdenVenta extends javax.swing.JFrame {
             listaProductos.add(p);
         }
         CarritoVenta venta = new CarritoVenta(listaProductos);
-        Controlador.ColaDeVentas.enqueue(venta);
+        
+        
+        
+         //CALCULAR A DE TIEMPO EJECUCION
+                    long TInicio3,
+                     TFin3,
+                     tiempo3;
+                    TInicio3 = System.currentTimeMillis();
+                    //inicio algoritmo
+                       Controlador.ColaDeVentas.enqueue(venta);
+                    //fin algoritmo
+                    TFin3 = System.currentTimeMillis();
+                    tiempo3 = TFin3 - TInicio3;
+                    System.out.println("Tiempo ms LinkedQueue<CarritoCompra> | op: Enqueue() " + tiempo3);
+                //FIN DE LA CALCULADORA
+        
+        
+        
+        
+        
+        
         System.out.println("Venta Encolada!");
         System.out.println("Codigo Venta: " + venta.getCodigoVenta());
 

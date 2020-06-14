@@ -46,8 +46,9 @@ public class Conexion {
 
             rs = st.executeQuery("select * from producto");
 
-            //registros de entrada seteados, por defecto entran 100.000
-            while (rs.next() && counter <= 4) {
+          
+            while (rs.next() && counter <= 999) {
+                //entran 1000 datos
                 //System.out.println(rs.getInt("total"));
 
                 //Proveedor provedorA = new Proveedor(rs.getInt("llave"), rs.getString("nombre"));
@@ -65,9 +66,10 @@ public class Conexion {
                 counter++;
             }
             //multiplicador de data en tiempo de ejecucion
-            //seteado a 400.000 registros más
-            while (counter2 <= 445) {
+           
+            while (counter2 <= 9000) {
 
+                
                 //Proveedor provedorB = new Proveedor(rs.getInt("llave") + counter2, rs.getString("nombre"));
                 Producto productoB
                         = new Producto(rs.getInt("codigoProducto") + counter2,
