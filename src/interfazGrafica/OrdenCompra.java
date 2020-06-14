@@ -260,7 +260,6 @@ public class OrdenCompra extends javax.swing.JFrame {
         for (int i = 0; i < jTable2.getRowCount(); i++) {
 
             //System.out.println(jTable2.getValueAt(i, 4).toString());
-
             Producto p = new Producto(Integer.parseInt(jTable2.getValueAt(i, 2).toString()),
                     jTable2.getValueAt(i, 3).toString(),
                     Integer.parseInt(jTable2.getValueAt(i, 5).toString()),
@@ -276,6 +275,9 @@ public class OrdenCompra extends javax.swing.JFrame {
         Controlador.PedidosTotales.agregarDelante(pedido);
         System.out.println("Pedido generado!");
         System.out.println("Codigo Pedido: " + pedido.getCodigoPedido());
+
+        //limpiar carrito
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -360,7 +362,7 @@ public class OrdenCompra extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         for (int i = 0; i < jTable1.getRowCount(); i++) {
-
+            
             if (IsSelected(i, 0, jTable1)) {
 
                 Object[] o = null;

@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 package interfazGrafica;
+
+import data.CarritoVenta;
+import data.Producto;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import logic.Controlador;
 
 /**
  *
@@ -13,12 +17,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RealizarVenta extends javax.swing.JFrame {
 
+    boolean rowCreated;
+
     /**
      * Creates new form Usuario
      */
     public RealizarVenta() {
         initComponents();
         crearmodelo();
+        rowCreated = false;
     }
 
     /**
@@ -139,36 +146,80 @@ public class RealizarVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-this.setVisible(true);
+        this.setVisible(false);
+        
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
-//nodo =Controlador.cola.deqeue
-       //Linkedlist (productos)= nodo.getkey
-            /*for(int i=0;i<Linked.size ();i++){
-    Object o[]=null;
-    producto c= (producto) LinkedList.get(i);
-    M.addRow(o); 
-    M.setValueAt(c.getNombres(),i,0);
-    M.setValueAt(c.getApellidos(),i,1);
-    M.setValueAt(c.getSexo(),i,2);
-    M.setValueAt(c.getCedula(),i,3);
-    M.setValueAt(c.getCiudad(),i,4);
-    M.setValueAt(c.getCategoria(),i,5);
-    M.setValueAt(c.getCelular(),i,6);
-    M.setValueAt(c.getDescripcion(),i,7);
-}    } */ 
+
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+
+        }
+
+        if (!Controlador.ColaDeVentas.isEmpty()) {
+
+            CarritoVenta venta = Controlador.ColaDeVentas.getFront();
+
+            for (int i = 0; i < venta.getListaProductos().size(); i++) {
+                Object o[] = null;
+                Producto p = (Producto) venta.getListaProductos().get(i);
+                M.addRow(o);
+                M.setValueAt(p.getCodigoProducto(), i, 0);
+                M.setValueAt(p.getDescripcion(), i, 1);
+                M.setValueAt(p.getPrecioVenta(), i, 2);
+                M.setValueAt(p.getCantidadUnidades(), i, 3);
+                // "codigo","Descripcion","Precio Venta","Cantidad"}){});
+            }
+            rowCreated = true;
+        } else {
+            System.out.println("No hay ventas pendientes");
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      /*for (int i=0;i<jTable1.getRowCount();i++)
-        {
-        producto= (jTable1.getValueAt(i, 1),..,...,...);
-        reducir stock
-        Controlador.productosTotales.find()
-    }      */  
+        if (M.getRowCount() > 0) {
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+                Producto p = new Producto(Integer.parseInt(jTable1.getValueAt(i, 0).toString()),
+                        jTable1.getValueAt(i, 1).toString(),
+                        Integer.parseInt(jTable1.getValueAt(i, 2).toString()),
+                        0,
+                        Integer.parseInt(jTable1.getValueAt(i, 3).toString()),
+                        null);
+
+                //aumentar stock
+                //Controlador.ArbolProductosTotales.insert(Controlador.ArbolProductosTotales.getRoot(), p);
+                Producto actual = Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
+
+                actual.reducirStock(p);
+                System.out.println("stock reducido");
+
+                Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).setKey(actual);
+
+            }
+
+            //crear historial de ventas, mover el pedido a lista de historial
+            System.out.println("Venta realizada!");
+            System.out.println("Stock Actualizado!");
+            CarritoVenta venta = Controlador.ColaDeVentas.dequeue();
+            System.out.println("Venta Noº: " + venta.getCodigoVenta() + " Realizada!");
+
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+
+        }else{
+            System.out.println("No hay venta seleccionada");
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -185,16 +236,24 @@ this.setVisible(true);
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RealizarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RealizarVenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RealizarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RealizarVenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RealizarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RealizarVenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RealizarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RealizarVenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -208,21 +267,24 @@ this.setVisible(true);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
                 new RealizarVenta().setVisible(true);
             }
         });
     }
     DefaultTableModel M;
-     private void crearmodelo(){
-    try{
-    M= (new DefaultTableModel(null, new String[]{
-    "codigo","Descripcion","Precio Venta","Cantidad"}){});
-   jTable1.setModel(M);
-    }catch (Exception e){
-    JOptionPane.showMessageDialog(null,"error");  
-    }}
-   /* public DefaultTableModel mostrarDatos(){
+
+    private void crearmodelo() {
+        try {
+            M = (new DefaultTableModel(null, new String[]{
+                "codigo", "Descripcion", "Precio Venta", "Cantidad"}) {
+            });
+            jTable1.setModel(M);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error");
+        }
+    }
+    /* public DefaultTableModel mostrarDatos(){
     this.validate();
 crearmodelo();
 Object o[]=null;

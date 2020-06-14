@@ -281,7 +281,7 @@ public class OrdenVenta extends javax.swing.JFrame {
         SubCategoria subCategoria = new SubCategoria(1, "yogures", categoria);
 
         for (int i = 0; i < jTable2.getRowCount(); i++) {
-            //System.out.println(jTable2.getValueAt(i, 4).toString());
+
             Producto p = new Producto(Integer.parseInt(jTable2.getValueAt(i, 2).toString()),
                     jTable2.getValueAt(i, 3).toString(),
                     Integer.parseInt(jTable2.getValueAt(i, 4).toString()),
@@ -290,15 +290,13 @@ public class OrdenVenta extends javax.swing.JFrame {
                     Integer.parseInt(jTable2.getValueAt(i, 1).toString()),
                     subCategoria);
 
-            // "Seleccionar", "Cantidad", "codigo", "Descripcion", "Precio Venta"})
-            //llenar array list
             listaProductos.add(p);
         }
         CarritoVenta venta = new CarritoVenta(listaProductos);
-                    //Controlador.CarritoDeVentas.enqueue(venta);
+        Controlador.ColaDeVentas.enqueue(venta);
         System.out.println("Venta Encolada!");
         System.out.println("Codigo Venta: " + venta.getCodigoVenta());
-        
+
 
     }//GEN-LAST:event_jButton4ActionPerformed
 

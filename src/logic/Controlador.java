@@ -29,7 +29,7 @@ public class Controlador {
     //public static LinkedList<Producto> ProductosTotales = new LinkedList();
     //use hashtable en PedidosTotales
     public static LinkedList<Pedido> PedidosTotales = new LinkedList();
-                //public static LinkedQueue<CarritoVenta> ColaDeVentas = new LinkedQueue<CarritoVenta>(***);
+    public static LinkedQueue<CarritoVenta> ColaDeVentas = new LinkedQueue<CarritoVenta>();
     //public static LinkedList<Empleado> EmpleadosTotales = new LinkedList();
     //public static LinkedList<Almacen> AlmacenesTotales = new LinkedList();
     //public static LinkedList<Categoria> CategoriasTotales = new LinkedList();
