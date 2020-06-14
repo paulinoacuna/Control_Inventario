@@ -40,7 +40,7 @@ public class OrdenCompra extends javax.swing.JFrame {
     public OrdenCompra() {
         initComponents();
         crearmodelo1();
-        crearmodelo2();     
+        crearmodelo2();
         rowCreated = false;
 
     }
@@ -252,9 +252,6 @@ public class OrdenCompra extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        // añadir linkedlist al arbol de pedidos static
-        // crear linkedlist de productos
-        // añadir productos seleccionados a la linkedlist
         ArrayList<Producto> listaProductos = new ArrayList<>();
 
         Categoria categoria = new Categoria(1, "Lacteos");
@@ -262,7 +259,7 @@ public class OrdenCompra extends javax.swing.JFrame {
 
         for (int i = 0; i < jTable2.getRowCount(); i++) {
 
-            System.out.println(jTable2.getValueAt(i, 4).toString());
+            //System.out.println(jTable2.getValueAt(i, 4).toString());
 
             Producto p = new Producto(Integer.parseInt(jTable2.getValueAt(i, 2).toString()),
                     jTable2.getValueAt(i, 3).toString(),

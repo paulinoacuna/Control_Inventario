@@ -9,30 +9,31 @@ import java.util.ArrayList;
 
 /**
  *
- * @author juanc
+ * @author Thesiz
  */
-public class Pedido implements Comparable {
+public class CarritoVenta implements Comparable {
+    //codigo copiado de Pedido, TODO: crear herencia abstracta
 
-    private int codigoPedido;
+    private int codigoVenta;
     private static int count = 0;
     private ArrayList<Producto> listaProductos;
 
-    public Pedido(ArrayList<Producto> listaProductos) {
-        this.codigoPedido = ++count;
+    public CarritoVenta(ArrayList<Producto> listaProductos) {
+        this.codigoVenta = ++count;
         this.listaProductos = listaProductos;
     }
 
-    public Pedido(int codigoPedido) {
-        this.codigoPedido = codigoPedido;
+    public CarritoVenta(int codigoVenta) {
+        this.codigoVenta = codigoVenta;
 
     }
 
-    public int getCodigoPedido() {
-        return codigoPedido;
+    public int getCodigoVenta() {
+        return codigoVenta;
     }
 
-    public void setCodigoPedido(int codigoPedido) {
-        this.codigoPedido = codigoPedido;
+    public void setCodigoVenta(int codigoVenta) {
+        this.codigoVenta = codigoVenta;
     }
 
     public ArrayList<Producto> getListaProductos() {
@@ -45,7 +46,7 @@ public class Pedido implements Comparable {
 
     @Override
     public String toString() {
-        return "codigoPedido: " + codigoPedido + "| listaProductos: " + listaProductos;
+        return "codigoVenta: " + codigoVenta + "| listaProductos: " + listaProductos;
     }
 
     @Override
@@ -56,9 +57,9 @@ public class Pedido implements Comparable {
 
     @Override
     public boolean equals(Object obj) {
-        Pedido other = (Pedido) obj;
+        CarritoVenta other = (CarritoVenta) obj;
 
-        if (this.codigoPedido == other.codigoPedido) {
+        if (this.codigoVenta == other.codigoVenta) {
             return true;
         } else {
             return false;
@@ -67,14 +68,14 @@ public class Pedido implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        Pedido other = (Pedido) o;
+        CarritoVenta other = (CarritoVenta) o;
 
         //si prev > next retorna 1
         //jmmmm
         //TODO: CAMBIAR METODO DE COMPARACION
-        if (this.codigoPedido > other.codigoPedido) {
+        if (this.codigoVenta > other.codigoVenta) {
             return 1;
-        } else if (this.codigoPedido < other.codigoPedido) {
+        } else if (this.codigoVenta < other.codigoVenta) {
             return -1;
 
         }

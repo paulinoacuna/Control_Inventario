@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 package interfazGrafica;
+
+import data.CarritoVenta;
+import data.Categoria;
+import data.Pedido;
+import data.Producto;
+import data.SubCategoria;
 import java.awt.TextField;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -11,6 +17,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import logic.Controlador;
+import logic.Paginador;
+import static logic.Paginador.nextPage;
+import static logic.Paginador.prevPage;
 
 /**
  *
@@ -18,12 +27,19 @@ import logic.Controlador;
  */
 public class OrdenVenta extends javax.swing.JFrame {
 
+    boolean rowCreated;
+    DefaultTableModel M;
+    DefaultTableModel N;
+    int count = 0;
+
     /**
      * Creates new form Usuario
      */
     public OrdenVenta() {
         initComponents();
-        crearmodelo();
+        crearmodelo1();
+        crearmodelo2();
+        rowCreated = false;
     }
 
     /**
@@ -47,6 +63,10 @@ public class OrdenVenta extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,7 +110,7 @@ public class OrdenVenta extends javax.swing.JFrame {
 
         jLabel4.setText("Orden Venta");
 
-        jButton4.setText("Realizar orden Venta");
+        jButton4.setText("Generar orden Venta");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -105,15 +125,40 @@ public class OrdenVenta extends javax.swing.JFrame {
         });
 
         jButton6.setText("<");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jTable2.setShowHorizontalLines(false);
+        jTable2.setShowVerticalLines(false);
+        jScrollPane2.setViewportView(jTable2);
+
+        jLabel5.setText("Carrito Compra");
+
+        jButton7.setText("Agregar al Carrito");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,45 +168,64 @@ public class OrdenVenta extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(349, 349, 349)
+                        .addGap(175, 175, 175)
+                        .addComponent(jButton4)
+                        .addGap(37, 37, 37)
                         .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton7)))
                 .addGap(34, 34, 34))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(634, 634, 634)
                         .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addComponent(jButton5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addGap(56, 56, 56)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jLabel3))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton7)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton5)
+                            .addComponent(jButton6))))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(jButton4)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(jButton3))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,36 +242,192 @@ public class OrdenVenta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-this.setVisible(false);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+
+        }
+        Paginador.counter = 0;
+
+        int[] nextArray = nextPage(Paginador.pilaA, Paginador.pilaB);
+
+        Controlador.ArbolProductosTotales.printByRange(Controlador.ArbolProductosTotales.getRoot(), nextArray[0], nextArray[1]);
+
+        Object[] elements = Paginador.currentPage;
+        Object[] o = null;
+
+        for (int i = 0; i < elements.length; i++) {
+            Producto p = (Producto) elements[i];
+
+            M.addRow(o);
+            M.setValueAt(p.getCodigoProducto(), i, 2);
+            M.setValueAt(p.getDescripcion(), i, 3);
+            M.setValueAt(p.getPrecioVenta(), i, 4);
+        }
+        rowCreated = true;
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        {
-         /* for (int i=0;i<jTable1.getRowCount();i++)
-        {
-        if (IsSelected(i,0,jTable1)){
-          //nuevo producto con las variables
-    producto (jTable1.getValueAt(i, 1),....);
-    // agregar producto a una linked list
-        
+        ArrayList<Producto> listaProductos = new ArrayList<>();
+
+        Categoria categoria = new Categoria(1, "Lacteos");
+        SubCategoria subCategoria = new SubCategoria(1, "yogures", categoria);
+
+        for (int i = 0; i < jTable2.getRowCount(); i++) {
+            //System.out.println(jTable2.getValueAt(i, 4).toString());
+            Producto p = new Producto(Integer.parseInt(jTable2.getValueAt(i, 2).toString()),
+                    jTable2.getValueAt(i, 3).toString(),
+                    Integer.parseInt(jTable2.getValueAt(i, 4).toString()),
+                    //TODO: valor precio compra no se esta guardando
+                    0,
+                    Integer.parseInt(jTable2.getValueAt(i, 1).toString()),
+                    subCategoria);
+
+            // "Seleccionar", "Cantidad", "codigo", "Descripcion", "Precio Venta"})
+            //llenar array list
+            listaProductos.add(p);
         }
-        }  */
-   // agregar linkedlist cola
-        }    }//GEN-LAST:event_jButton4ActionPerformed
+        CarritoVenta venta = new CarritoVenta(listaProductos);
+                    //Controlador.CarritoDeVentas.enqueue(venta);
+        System.out.println("Venta Encolada!");
+        System.out.println("Codigo Venta: " + venta.getCodigoVenta());
+        
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.setVisible(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-// mismo de la busqueda por codigo
-      
+
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+        }
+
+        if (cod.getText() == null) {
+            //TODO:  REPARAR VALIDACION SE ESTA USANDO ESTA CONDICIONAL
+            System.out.println("No hay elemento a buscar");
+
+        } else {
+
+            int codigoProducto = Integer.parseInt(cod.getText());
+            Producto p = new Producto(codigoProducto, null, 0, 0, 0, null);
+
+            //Object[] elements = new Object[1];
+            Producto temp = (Producto) Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
+            //elements[0] = temp;
+            Object[] o = null;
+
+            M.addRow(o);
+            M.setValueAt(temp.getCodigoProducto(), 0, 2);
+            M.setValueAt(temp.getDescripcion(), 0, 3);
+            M.setValueAt(temp.getPrecioVenta(), 0, 4);
+
+            addCheckBox(0, 1, jTable1);
+            rowCreated = true;
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // mostrar rango
+
+        Paginador.vaciarPilas();
+        Paginador.cargarPilas();
+
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+
+        }
+        Paginador.counter = 0;
+        int[] nextArray = nextPage(Paginador.pilaA, Paginador.pilaB);
+
+        Controlador.ArbolProductosTotales.printByRange(Controlador.ArbolProductosTotales.getRoot(), nextArray[0], nextArray[1]);
+
+        Object[] elements = Paginador.currentPage;
+        Object[] o = null;
+
+        for (int i = 0; i < elements.length; i++) {
+
+            Producto p = (Producto) elements[i];
+
+            M.addRow(o);
+            M.setValueAt(p.getCodigoProducto(), i, 2);
+            M.setValueAt(p.getDescripcion(), i, 3);
+            M.setValueAt(p.getPrecioVenta(), i, 4);
+            // "Seleccionar", "Cantidad", "codigo", "Descripcion", "Precio Venta"})
+        }
+        addCheckBox(0, 1, jTable1); //repair
+        rowCreated = true;
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+
+        }
+        Paginador.counter = 0;
+
+        int[] prevArray = prevPage(Paginador.pilaA, Paginador.pilaB);
+
+        Controlador.ArbolProductosTotales.printByRange(Controlador.ArbolProductosTotales.getRoot(), prevArray[0], prevArray[1]);
+
+        Object[] elements = Paginador.currentPage;
+        Object[] o = null;
+
+        for (int i = 0; i < elements.length; i++) {
+            Producto p = (Producto) elements[i];
+
+            M.addRow(o);
+            M.setValueAt(p.getCodigoProducto(), i, 2);
+            M.setValueAt(p.getDescripcion(), i, 3);
+            M.setValueAt(p.getPrecioVenta(), i, 4);
+
+        }
+        rowCreated = true;
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+
+            if (IsSelected(i, 0, jTable1)) {
+
+                Object[] o = null;
+                N.addRow(o);
+
+                N.setValueAt(jTable1.getValueAt(i, 1), count, 1);
+                N.setValueAt(jTable1.getValueAt(i, 2), count, 2);
+                N.setValueAt(jTable1.getValueAt(i, 3), count, 3);
+                N.setValueAt(jTable1.getValueAt(i, 4), count, 4);
+                count++;
+
+                addCheckBox(0, 1, jTable2);
+                jTable1.setValueAt(null, i, 0);
+            }
+        }
+
+
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,21 +462,35 @@ this.setVisible(false);        // TODO add your handling code here:
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
                 new OrdenVenta().setVisible(true);
             }
         });
     }
-    DefaultTableModel M;
-    private void crearmodelo(){
-    try{
-    M= (new DefaultTableModel(null, new String[]{
-    "Seleccionar","codigo","Descripcion","Precio Venta","Cantidad"}){});
-   jTable1.setModel(M);
-    }catch (Exception e){
-    JOptionPane.showMessageDialog(null,"error");  
-    }}
-   /* public DefaultTableModel mostrarDatos(){
+
+    private void crearmodelo1() {
+        try {
+            M = (new DefaultTableModel(null, new String[]{
+                "Seleccionar", "Cantidad", "codigo", "Descripcion", "Precio Venta"}) {
+            });
+            jTable1.setModel(M);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error");
+        }
+    }
+
+    private void crearmodelo2() {
+        try {
+            N = (new DefaultTableModel(null, new String[]{
+                "Seleccionar", "Cantidad", "codigo", "Descripcion", "Precio Venta"}) {
+            });
+            jTable2.setModel(N);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error");
+        }
+    }
+
+    /* public DefaultTableModel mostrarDatos(){
     this.validate();
 crearmodelo();
 Object o[]=null;
@@ -293,18 +527,19 @@ for(int i=0;i<usuariosBusqueda.size ();i++){
 }
 return M;
     }*/
-    public void addCheckBox(int column,int column1, JTable table){
-TableColumn tc= table.getColumnModel().getColumn(column);
-TableColumn tr= table.getColumnModel().getColumn(column1);
-tc.setCellEditor(table.getDefaultEditor(Boolean.class));
-tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
-tr.setCellEditor(table.getDefaultEditor(TextField.class));
-tr.setCellRenderer(table.getDefaultRenderer(TextField.class));
+    public void addCheckBox(int column, int column1, JTable table) {
+        TableColumn tc = table.getColumnModel().getColumn(column);
+        TableColumn tr = table.getColumnModel().getColumn(column1);
+        tc.setCellEditor(table.getDefaultEditor(Boolean.class));
+        tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
+        tr.setCellEditor(table.getDefaultEditor(TextField.class));
+        tr.setCellRenderer(table.getDefaultRenderer(TextField.class));
 
     }
-    public Boolean IsSelected(int row,int colum,JTable table){
-    return table.getValueAt(row, colum)!=null;
-    
+
+    public Boolean IsSelected(int row, int colum, JTable table) {
+        return table.getValueAt(row, colum) != null;
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cod;
@@ -314,10 +549,14 @@ tr.setCellRenderer(table.getDefaultRenderer(TextField.class));
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
