@@ -12,20 +12,21 @@ import java.util.ArrayList;
  * @author juanc
  */
 public class Pedido {
-    private int codigoProducto;
-    private ArrayList<Producto>  listaProductos;
 
-    public Pedido(int codigoProducto, ArrayList<Producto> listaProductos) {
-        this.codigoProducto = codigoProducto;
+    private int codigoPedido = 1;
+    private ArrayList<Producto> listaProductos;
+
+    public Pedido(ArrayList<Producto> listaProductos) {
+        this.codigoPedido += 1;
         this.listaProductos = listaProductos;
     }
 
-    public int getCodigoProducto() {
-        return codigoProducto;
+    public int getCodigoPedido() {
+        return codigoPedido;
     }
 
-    public void setCodigoProducto(int codigoProducto) {
-        this.codigoProducto = codigoProducto;
+    public void setCodigoPedido(int codigoPedido) {
+        this.codigoPedido = codigoPedido;
     }
 
     public ArrayList<Producto> getListaProductos() {
@@ -36,5 +37,5 @@ public class Pedido {
         this.listaProductos = listaProductos;
     }
     
-    
+
 }

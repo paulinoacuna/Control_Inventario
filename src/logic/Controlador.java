@@ -27,7 +27,8 @@ public class Controlador {
     //testing con la clase Proveedor
     public static LinkedList<Proveedor> ProvedoresTotales = new LinkedList();
     //public static LinkedList<Producto> ProductosTotales = new LinkedList();
-    //public static LinkedList<Pedido> PedidosTotales = new LinkedList();
+    //use hashtable en PedidosTotales
+    public static LinkedList<Pedido> PedidosTotales = new LinkedList();
     //public static LinkedList<Empleado> EmpleadosTotales = new LinkedList();
     //public static LinkedList<Almacen> AlmacenesTotales = new LinkedList();
     //public static LinkedList<Categoria> CategoriasTotales = new LinkedList();

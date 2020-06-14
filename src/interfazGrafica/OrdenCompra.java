@@ -6,10 +6,13 @@
 package interfazGrafica;
 
 import baseDatos.Conexion;
+import data.Categoria;
+import data.Pedido;
 import data.Producto;
 import data.SubCategoria;
 import estructuraDatos.LinkedAVL;
 import java.awt.TextField;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +20,7 @@ import javax.swing.table.TableColumn;
 import logic.Controlador;
 import logic.Paginador;
 import static logic.Paginador.nextPage;
+import static logic.Paginador.prevPage;
 
 /**
  *
@@ -27,6 +31,7 @@ public class OrdenCompra extends javax.swing.JFrame {
     boolean rowCreated;
     DefaultTableModel M;
     DefaultTableModel N;
+    int count = 0;
 
     /**
      * Creates new form OrdenCompra
@@ -35,7 +40,6 @@ public class OrdenCompra extends javax.swing.JFrame {
         initComponents();
         crearmodelo1();
         crearmodelo2();
-        //crearmodelo(N, jTable2);
         Conexion.cargarBaseDatos();
         Paginador.cargarPilas();
         rowCreated = false;
@@ -65,6 +69,7 @@ public class OrdenCompra extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,6 +134,11 @@ public class OrdenCompra extends javax.swing.JFrame {
         });
 
         jButton6.setText("<");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -145,6 +155,13 @@ public class OrdenCompra extends javax.swing.JFrame {
         jTable2.setShowVerticalLines(false);
         jScrollPane2.setViewportView(jTable2);
 
+        jButton7.setText("Generar Orden");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -155,9 +172,14 @@ public class OrdenCompra extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 496, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton7)
+                                .addGap(45, 45, 45)))
                         .addComponent(jButton2)
                         .addGap(46, 46, 46)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +212,7 @@ public class OrdenCompra extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton5)
                             .addComponent(jButton6))
@@ -204,8 +226,8 @@ public class OrdenCompra extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButton2)
+                            .addComponent(jButton7))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -232,6 +254,187 @@ public class OrdenCompra extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
+        // añadir linkedlist al arbol de pedidos static
+        // crear linkedlist de productos
+        // añadir productos seleccionados a la linkedlist
+        ArrayList<Producto> listaProductos = new ArrayList<>();
+
+        Categoria categoria = new Categoria(1, "Lacteos");
+        SubCategoria subCategoria = new SubCategoria(1, "yogures", categoria);
+
+        for (int i = 0; i < jTable2.getRowCount(); i++) {
+
+            System.out.println(jTable2.getValueAt(i, 4).toString());
+
+            Producto p = new Producto(Integer.parseInt(jTable2.getValueAt(i, 2).toString()),
+                    jTable2.getValueAt(i, 3).toString(),
+                    Integer.parseInt(jTable2.getValueAt(i, 5).toString()),
+                    Integer.parseInt(jTable2.getValueAt(i, 4).toString()),
+                    Integer.parseInt(jTable2.getValueAt(i, 1).toString()),
+                    subCategoria);
+
+            //llenar array list
+            listaProductos.add(p);
+        }
+
+        Pedido pedido = new Pedido(listaProductos);
+        Controlador.PedidosTotales.agregarDelante(pedido);
+        
+
+
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+
+        }
+        Paginador.counter = 0;
+
+        int[] prevArray = prevPage(Paginador.pilaA, Paginador.pilaB);
+
+        Controlador.ArbolProductosTotales.printByRange(Controlador.ArbolProductosTotales.getRoot(), prevArray[0], prevArray[1]);
+
+        Object[] elements = Paginador.currentPage;
+        Object[] o = null;
+
+        for (int i = 0; i < elements.length; i++) {
+            Producto p = (Producto) elements[i];
+
+            M.addRow(o);
+            M.setValueAt(p.getCodigoProducto(), i, 2);
+            M.setValueAt(p.getDescripcion(), i, 3);
+
+            M.setValueAt(p.getPrecioCompra(), i, 4);
+            M.setValueAt(p.getPrecioVenta(), i, 5);
+
+            M.setValueAt(p.getCantidadUnidades(), i, 6);
+            M.setValueAt(p.getDescuento(), i, 7);
+        }
+        rowCreated = true;
+
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+
+        }
+        Paginador.counter = 0;
+
+        int[] nextArray = nextPage(Paginador.pilaA, Paginador.pilaB);
+
+        Controlador.ArbolProductosTotales.printByRange(Controlador.ArbolProductosTotales.getRoot(), nextArray[0], nextArray[1]);
+
+        Object[] elements = Paginador.currentPage;
+        Object[] o = null;
+
+        for (int i = 0; i < elements.length; i++) {
+            Producto p = (Producto) elements[i];
+
+            M.addRow(o);
+            M.setValueAt(p.getCodigoProducto(), i, 2);
+            M.setValueAt(p.getDescripcion(), i, 3);
+
+            M.setValueAt(p.getPrecioCompra(), i, 4);
+            M.setValueAt(p.getPrecioVenta(), i, 5);
+
+            M.setValueAt(p.getCantidadUnidades(), i, 6);
+            M.setValueAt(p.getDescuento(), i, 7);
+        }
+        rowCreated = true;
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.setVisible(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void codActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+
+            if (IsSelected(i, 0, jTable1)) {
+
+                Object[] o = null;
+                N.addRow(o);
+
+                N.setValueAt(jTable1.getValueAt(i, 1), count, 1);
+                N.setValueAt(jTable1.getValueAt(i, 2), count, 2);
+                N.setValueAt(jTable1.getValueAt(i, 3), count, 3);
+
+                N.setValueAt(jTable1.getValueAt(i, 4), count, 4);
+                N.setValueAt(jTable1.getValueAt(i, 5), count, 5);
+
+                N.setValueAt(jTable1.getValueAt(i, 6), count, 6);
+                N.setValueAt(jTable1.getValueAt(i, 7), count, 7);
+                count++;
+
+                addCheckBox(0, 1, jTable2);
+                jTable1.setValueAt(null, i, 0);
+                /*  Add((find(jTable1.getValueAt(i, 1)));*/
+                //System.out.println(jTable1.getValueAt(i, 1));
+                //Producto productoA= new Producto(jTable1.getValueAt(i, 1),jTable1.getValueAt(i, 2),jTable1.getValueAt(i, 3),jTable1.getValueAt(i, 4),jTable1.getValueAt(i, 5),subCategoria);
+                // arbol.insert(arbol.getRoot(), productoA);
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+        }
+
+        if (cod.getText() == null) {
+            //TODO:  REPARAR VALIDACION SE ESTA USANDO ESTA CONDICIONAL
+            System.out.println("No hay elemento a buscar");
+
+        } else {
+
+            int codigoProducto = Integer.parseInt(cod.getText());
+            Producto p = new Producto(codigoProducto, null, 0, 0, 0, null);
+
+            //Object[] elements = new Object[1];
+            Producto temp = (Producto) Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
+            //elements[0] = temp;
+            Object[] o = null;
+
+            M.addRow(o);
+            M.setValueAt(temp.getCodigoProducto(), 0, 2);
+            M.setValueAt(temp.getDescripcion(), 0, 3);
+
+            M.setValueAt(temp.getPrecioCompra(), 0, 4);
+            M.setValueAt(temp.getPrecioVenta(), 0, 5);
+
+            M.setValueAt(temp.getCantidadUnidades(), 0, 6);
+            M.setValueAt(temp.getDescuento(), 0, 7);
+
+            addCheckBox(0, 1, jTable1);
+            rowCreated = true;
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
@@ -272,94 +475,7 @@ public class OrdenCompra extends javax.swing.JFrame {
         rowCreated = true;
 
         //  "Seleccionar","Cantidad A Comprar", "codigo", "Descripcion", "Precio compra", "Precio Venta", "Existencias","Descuento"}) {
-
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void codActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.setVisible(false);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        // añadir linkedlist al arbol de pedidos static  
-        // crear linkedlist de productos
-        // añadir productos seleccionados a la linkedlist
-        int count = 0;
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            if (IsSelected(i, 0, jTable1)) {
-                /*  Add((find(jTable1.getValueAt(i, 1)));*/
-                //System.out.println(jTable1.getValueAt(i, 1));
-
-                Object[] o = null;
-                N.addRow(o);
-
-                N.setValueAt(jTable1.getValueAt(i, 2), count, 2);
-                N.setValueAt(jTable1.getValueAt(i, 3), count, 3);
-
-                N.setValueAt(jTable1.getValueAt(i, 4), count, 4);
-                N.setValueAt(jTable1.getValueAt(i, 5), count, 5);
-
-                N.setValueAt(jTable1.getValueAt(i, 6), count, 6);
-                N.setValueAt(jTable1.getValueAt(i, 7), count, 7);
-                count++;
-
-                addCheckBox(0, 1, jTable2);
-
-                //Producto productoA= new Producto(jTable1.getValueAt(i, 1),jTable1.getValueAt(i, 2),jTable1.getValueAt(i, 3),jTable1.getValueAt(i, 4),jTable1.getValueAt(i, 5),subCategoria);
-                // arbol.insert(arbol.getRoot(), productoA);
-            }
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        if (rowCreated) {
-            for (int i = M.getRowCount() - 1; i >= 0; i--) {
-                M.removeRow(i);
-
-            }
-            rowCreated = false;
-        }
-
-        if (cod.getText() == null) {
-            //TODO:  REPARAR VALIDACION SE ESTA USANDO ESTA CONDICIONAL 
-            System.out.println("No hay elemento a buscar");
-
-        } else {
-
-            int codigoProducto = Integer.parseInt(cod.getText());
-            Producto p = new Producto(codigoProducto, null, 0, 0, 0, null);
-
-            //Object[] elements = new Object[1];
-            Producto temp = (Producto) Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
-            //elements[0] = temp;
-            Object[] o = null;
-
-            M.addRow(o);
-            M.setValueAt(temp.getCodigoProducto(), 0, 2);
-            M.setValueAt(temp.getDescripcion(), 0, 3);
-
-            M.setValueAt(temp.getPrecioCompra(), 0, 4);
-            M.setValueAt(temp.getPrecioVenta(), 0, 5);
-
-            M.setValueAt(temp.getCantidadUnidades(), 0, 6);
-            M.setValueAt(temp.getDescuento(), 0, 7);
-
-            addCheckBox(0, 1, jTable1);
-            rowCreated = true;
-        }
-
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,7 +585,7 @@ return M;
     }
 
     public Boolean IsSelected(int row, int colum, JTable table) {
-        return table.getValueAt(row, colum) != null;
+        return (table.getValueAt(row, colum) != null);
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -480,6 +596,7 @@ return M;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
