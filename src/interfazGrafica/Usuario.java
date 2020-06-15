@@ -45,7 +45,7 @@ public class Usuario extends javax.swing.JFrame {
                      tiempo1;
                     TInicio1 = System.currentTimeMillis();
                     //inicio algoritmo
-                            //   Controlador.ArbolProductosTotales.inOrder(Controlador.ArbolProductosTotales.getRoot());
+                        //Controlador.ArbolProductosTotales.inOrder(Controlador.ArbolProductosTotales.getRoot());
                        
                     //fin algoritmo
                     TFin1 = System.currentTimeMillis();

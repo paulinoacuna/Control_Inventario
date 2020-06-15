@@ -15,6 +15,9 @@ import estructuraDatos.*;
 public class RunTesting {
 
     public static void main(String[] args) {
+
+
+
         /*
                 //CALCULAR A DE TIEMPO EJECUCION
                     long TInicio3,
@@ -28,8 +31,7 @@ public class RunTesting {
                     tiempo3 = TFin3 - TInicio3;
                     System.out.println("Tiempo de ejecución Ordenar la LinkedList en milisegundos: " + tiempo3);
                 //FIN DE LA CALCULADORA
-*/
-
+         */
     }
 
 }

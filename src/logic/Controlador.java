@@ -30,11 +30,11 @@ public class Controlador {
     //use hashtable en PedidosTotales
     public static LinkedList<Pedido> PedidosTotales = new LinkedList();
     public static LinkedQueue<CarritoVenta> ColaDeVentas = new LinkedQueue<CarritoVenta>();
+
     //public static LinkedList<Empleado> EmpleadosTotales = new LinkedList();
     //public static LinkedList<Almacen> AlmacenesTotales = new LinkedList();
     //public static LinkedList<Categoria> CategoriasTotales = new LinkedList();
     //public static LinkedList<SubCategoria> SubCategoriasTotales = new LinkedList();
-
     public static void iniciarSesion() {
 
     }

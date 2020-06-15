@@ -7,11 +7,13 @@ package interfazGrafica;
 
 import baseDatos.Conexion;
 import data.Producto;
+import estructuraDatos.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import logic.Controlador;
+import logic.Ordenamiento;
 
 import logic.Paginador;
 import static logic.Paginador.nextPage;
@@ -56,6 +58,7 @@ public class Busqueda extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,6 +120,13 @@ public class Busqueda extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setText("Ordenar por Existencias");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,7 +144,10 @@ public class Busqueda extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton1)
-                            .addComponent(jButton2)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton6)
+                                .addGap(112, 112, 112)
+                                .addComponent(jButton2))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(686, 686, 686)
                         .addComponent(jButton5)
@@ -164,10 +177,12 @@ public class Busqueda extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addComponent(jLabel2)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
@@ -245,6 +260,7 @@ public class Busqueda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
         if (rowCreated) {
             for (int i = M.getRowCount() - 1; i >= 0; i--) {
                 M.removeRow(i);
@@ -253,6 +269,7 @@ public class Busqueda extends javax.swing.JFrame {
             rowCreated = false;
 
         }
+
         Paginador.counter = 0;
 
         int[] nextArray = nextPage(Paginador.pilaA, Paginador.pilaB);
@@ -300,29 +317,20 @@ public class Busqueda extends javax.swing.JFrame {
             Producto p = new Producto(codigoProducto, null, 0, 0, 0, null);
 
             Object[] elements = new Object[1];
-            
-            
-            
-            
-            
-              //CALCULAR A DE TIEMPO EJECUCION
-                    long TInicio3,
-                     TFin3,
-                     tiempo3;
-                    TInicio3 = System.currentTimeMillis();
-                    //inicio algoritmo
-                         Producto temp = (Producto) Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
-                    //fin algoritmo
-                    TFin3 = System.currentTimeMillis();
-                    tiempo3 = TFin3 - TInicio3;
-                    System.out.println("Tiempo ms LinkedAVL<Producto> | op: Find() " + tiempo3);
-                //FIN DE LA CALCULADORA
-            
 
-                
-                
-                
-            
+            //CALCULAR A DE TIEMPO EJECUCION
+            long TInicio3,
+                    TFin3,
+                    tiempo3;
+            TInicio3 = System.currentTimeMillis();
+            //inicio algoritmo
+            Producto temp = (Producto) Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
+            //fin algoritmo
+            TFin3 = System.currentTimeMillis();
+            tiempo3 = TFin3 - TInicio3;
+            System.out.println("Tiempo ms LinkedAVL<Producto> | op: Find() " + tiempo3);
+            //FIN DE LA CALCULADORA
+
             elements[0] = temp;
             Object[] o = null;
 
@@ -379,6 +387,71 @@ public class Busqueda extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        if (rowCreated) {
+            for (int i = M.getRowCount() - 1; i >= 0; i--) {
+                M.removeRow(i);
+
+            }
+            rowCreated = false;
+
+        }
+        Paginador.vaciarPilas();
+        Paginador.cargarPilas();
+
+        Ordenamiento<Producto> ordenar = new Ordenamiento<>();
+        ordenar.cargarMinHeap();
+        //System.out.println(ordenar.getMyHeap().toString());
+
+        Producto.compararPorCantidad = true;
+        //int[] nextArray = nextPage(Paginador.pilaA, Paginador.pilaB);
+        //solucionar paginador con ordenacion
+        /* Paginador.counter = 0;
+
+        while (Paginador.counter < Paginador.currentPage.length) {
+
+            Paginador.currentPage[Paginador.counter] = ordenar.getMyHeap().poll();
+            Paginador.counter++;
+
+        }
+        Object[] elements = Paginador.currentPage;
+         */
+
+        int length = ordenar.getMyHeap().length();
+        Object[] elements = new Object[length];
+
+        for (int j = 0; j < length; j++) {
+            elements[j] = ordenar.getMyHeap().poll();
+
+        }
+
+        Producto.compararPorCantidad = false;
+        //Controlador.ArbolProductosTotales.printByRange(Controlador.ArbolProductosTotales.getRoot(), nextArray[0], nextArray[1]);
+
+        Object[] o = null;
+        for (int i = 0; i < elements.length; i++) {
+            Producto p = (Producto) elements[i];
+
+            M.addRow(o);
+            M.setValueAt(p.getCodigoProducto(), i, 0);
+            M.setValueAt(p.getDescripcion(), i, 1);
+            M.setValueAt(p.getPrecioVenta(), i, 2);
+            if (p.getCantidadUnidades() <= 0) {
+                M.setValueAt("Si", i, 3);
+            } else {
+                M.setValueAt("No", i, 3);
+            }
+            M.setValueAt(p.getCantidadUnidades(), i, 4);
+            M.setValueAt(p.getDescuento(), i, 5);
+        }
+        rowCreated = true;
+
+        //pintar
+        //mostrar cada elemento con remove en la jtable1
+
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -445,6 +518,7 @@ public class Busqueda extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

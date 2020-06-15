@@ -17,6 +17,7 @@ public class Producto implements Comparable {
     private int precioCompra;
     private int cantidadUnidades;
     private SubCategoria subCategoria;
+    public static boolean compararPorCantidad = false;
 
     private double descuento = 0;
 
@@ -96,7 +97,7 @@ public class Producto implements Comparable {
     public void reducirStock(Producto producto) {
         if (this.cantidadUnidades > 0) {
             this.cantidadUnidades -= producto.cantidadUnidades;
-        }else{
+        } else {
             System.out.println("Producto Agotado");
         }
 
@@ -123,17 +124,27 @@ public class Producto implements Comparable {
     @Override
     public int compareTo(Object o) {
         Producto other = (Producto) o;
+        if (!compararPorCantidad) {
 
-        //si prev > next retorna 1
-        //jmmmm
-        //TODO: CAMBIAR METODO DE COMPARACION
-        if (this.codigoProducto > other.codigoProducto) {
-            return 1;
-        } else if (this.codigoProducto < other.codigoProducto) {
-            return -1;
+            if (this.codigoProducto > other.codigoProducto) {
+                return 1;
+            } else if (this.codigoProducto < other.codigoProducto) {
+                return -1;
+
+            }
+            return 0;
+
+        } else {
+
+            if (this.cantidadUnidades >= other.cantidadUnidades) {
+                return 1;
+            } else if (this.cantidadUnidades < other.cantidadUnidades) {
+                return -1;
+
+            }
+            return 0;
 
         }
-        return 0;
 
     }
 

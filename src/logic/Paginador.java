@@ -29,7 +29,7 @@ public class Paginador {
             size = size - 199; //1
 
             
-            
+            /*
               //CALCULAR A DE TIEMPO EJECUCION
                     long TInicio3,
                      TFin3,
@@ -43,8 +43,8 @@ public class Paginador {
                     System.out.println("Tiempo ms LinkedStack<String> | op: Push() " + tiempo3);
                 //FIN DE LA CALCULADORA
             
-            
-
+            */
+            pilaA.push(String.valueOf(size) + "-" + String.valueOf(max));
             
             
             
@@ -75,6 +75,8 @@ public class Paginador {
 
         if (!pilaA.isEmpty()) {
 
+            
+            /*
              //CALCULAR A DE TIEMPO EJECUCION
                     long TInicio3,
                      TFin3,
@@ -87,8 +89,8 @@ public class Paginador {
                     tiempo3 = TFin3 - TInicio3;
                     System.out.println("Tiempo ms LinkedStack<String> | op: Pop() " + tiempo3);
                 //FIN DE LA CALCULADORA
-                
-                
+                */
+                 Object value = pilaA.pop();
             pilaB.push(value);
 
             
@@ -113,7 +115,7 @@ public class Paginador {
         if (pilaB.getSize() >= 2) {
             pilaA.push(pilaB.pop());
 
-            
+            /*
              //CALCULAR A DE TIEMPO EJECUCION
                     long TInicio3,
                      TFin3,
@@ -126,8 +128,8 @@ public class Paginador {
                     tiempo3 = TFin3 - TInicio3;
                     System.out.println("Tiempo ms LinkedStack<String> | op: top() " + tiempo3);
                 //FIN DE LA CALCULADORA
-           
-
+           */
+            String range = (String) pilaB.top();
             String[] rangeArray = range.split("-");
 
             intsArray[0] = Integer.parseInt(rangeArray[0]);

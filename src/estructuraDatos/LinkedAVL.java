@@ -6,6 +6,7 @@
 package estructuraDatos;
 
 import data.Producto;
+import java.util.ArrayList;
 import logic.Paginador;
 
 /**
@@ -17,6 +18,7 @@ public class LinkedAVL<T extends Comparable> {
 
     private NodoAVL<T> root;
     private int size = 0;
+    private int counter = 0;
 
     private boolean hasRotated = false;
 
@@ -25,6 +27,7 @@ public class LinkedAVL<T extends Comparable> {
 
         this.root = new NodoAVL<>(key);
         this.size = 1;
+
     }
 
     public int getSize() {
@@ -206,15 +209,24 @@ public class LinkedAVL<T extends Comparable> {
         return nodo;
     }
 
-    public void inOrder(NodoAVL<T> n) {
+    public T[] inOrder(NodoAVL<T> n, T[] keysArray) {
         if (n != null) {
-            inOrder(n.getLeft());
-            //TODO: enviar a jframe para visualizar
-            System.out.println(n.getKey().toString());
+            inOrder(n.getLeft(), keysArray);
 
             //System.out.println(n.getKey().toString());
-            inOrder(n.getRight());
+            keysArray[counter] = n.getKey();
+            counter++;
+
+            //System.out.println(n.getKey().toString());
+            inOrder(n.getRight(), keysArray);
         }
+        return keysArray;
+    }
+
+    public T[] getKeysArray() {
+        T[] keysArray = (T[]) new Comparable[this.size];
+        counter = 0;
+        return inOrder(this.root, keysArray);
     }
 
     public void printByRange(NodoAVL<T> root, int k1, int k2) {
@@ -246,6 +258,14 @@ public class LinkedAVL<T extends Comparable> {
 
         }
 
+    }
+
+    //TODO COMPLETE
+    public NodoAVL<T> delete(NodoAVL<T> root, T key) {
+
+        NodoAVL<T> nodo = this.find(root, key);
+
+        return null;
     }
 
     //TODO: 
