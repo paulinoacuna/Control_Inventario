@@ -10,6 +10,7 @@ import data.Categoria;
 import data.Pedido;
 import data.Producto;
 import data.SubCategoria;
+import estructuraDatos.NodoAVL;
 import java.awt.Image;
 import java.awt.TextField;
 import java.awt.Toolkit;
@@ -427,7 +428,7 @@ public class OrdenVenta extends javax.swing.JFrame {
         Paginador.counter = 0;
         int[] nextArray = nextPage(Paginador.pilaA, Paginador.pilaB);
 
-        Controlador.ArbolProductosTotales.printByRange(Controlador.ArbolProductosTotales.getRoot(), nextArray[0], nextArray[1]);
+        Controlador.ArbolProductosTotales.printByRange((NodoAVL<Producto>) Controlador.ArbolProductosTotales.getRoot(), nextArray[0], nextArray[1]);
 
         Object[] elements = Paginador.currentPage;
         Object[] o = null;

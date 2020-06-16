@@ -244,7 +244,7 @@ public class RealizarVenta extends javax.swing.JFrame {
 
                 //aumentar stock
                 //Controlador.ArbolProductosTotales.insert(Controlador.ArbolProductosTotales.getRoot(), p);
-                Producto actual = Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
+                Producto actual = (Producto) Controlador.ArbolProductosTotales.find(Controlador.ArbolProductosTotales.getRoot(), p).getKey();
 
                 actual.reducirStock(p);
                 System.out.println("stock reducido");
