@@ -14,7 +14,7 @@ import static logic.Controlador.ArbolProductosTotales;
 public class Conexion {
 
     public Connection conex;
-    private String url = String.format("jdbc:mysql://%s:%d/%s?useSSL=false", "localhost", 3306, "controlinventario500k");
+    private String url = String.format("jdbc:mysql://%s:%d/%s?useSSL=false", "localhost", 3306, "controlinvetario");
     private String user = "root";
     private String pass = "123456";
 
@@ -45,6 +45,12 @@ public class Conexion {
             st = con.conex.createStatement();
 
             rs = st.executeQuery("select * from producto");
+            
+            for (int i = 2; i <= 10; i++) {
+                Producto productoN = new Producto(i, "boyourt oreo 250g", 2800, 2000, 14, Controlador.subCategoria);
+                ArbolProductosTotales.insert(ArbolProductosTotales.getRoot(), productoN);
+
+            }
 
           
             while (rs.next() && counter <= 999) {
@@ -53,7 +59,7 @@ public class Conexion {
 
                 //Proveedor provedorA = new Proveedor(rs.getInt("llave"), rs.getString("nombre"));
                 Producto productoA
-                        = new Producto(rs.getInt("codigoProducto"),
+                        = new Producto(rs.getInt("id"),
                                 rs.getString("descripcion"),
                                 rs.getInt("precioVenta"),
                                 rs.getInt("precioCompra"),
@@ -67,12 +73,12 @@ public class Conexion {
             }
             //multiplicador de data en tiempo de ejecucion
            
-            while (counter2 <= 9000) {
+            while (counter2 <= 8990) {
 
                 
                 //Proveedor provedorB = new Proveedor(rs.getInt("llave") + counter2, rs.getString("nombre"));
                 Producto productoB
-                        = new Producto(rs.getInt("codigoProducto") + counter2,
+                        = new Producto(rs.getInt("id") + counter2,
                                 rs.getString("descripcion"),
                                 rs.getInt("precioVenta"),
                                 rs.getInt("precioCompra"),

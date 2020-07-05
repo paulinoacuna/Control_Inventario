@@ -223,6 +223,15 @@ public class LinkedAVL<T extends Comparable> {
         return keysArray;
     }
 
+    public void inOrderTemp(NodoAVL<T> n) {
+        if (n != null) {
+            inOrderTemp(n.getLeft());
+            System.out.println(n.getKey().toString());
+            inOrderTemp(n.getRight());
+        }
+
+    }
+
     public T[] getKeysArray() {
         T[] keysArray = (T[]) new Comparable[this.size];
         counter = 0;

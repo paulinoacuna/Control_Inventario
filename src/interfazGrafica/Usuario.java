@@ -17,25 +17,22 @@ public class Usuario extends javax.swing.JFrame {
      */
     public Usuario() {
         initComponents();
-         
-                
-                
-         //TESTING INORDER
-            //CALCULAR A DE TIEMPO EJECUCION
-                    long TInicio1,
-                     TFin1,
-                     tiempo1;
-                    TInicio1 = System.currentTimeMillis();
-                    //inicio algoritmo
-                        //Controlador.ArbolProductosTotales.inOrder(Controlador.ArbolProductosTotales.getRoot());
-                       
-                    //fin algoritmo
-                    TFin1 = System.currentTimeMillis();
-                    tiempo1 = TFin1 - TInicio1;
-                    System.out.println("Tiempo ms LinkedAVL<Producto> | op: InOrder() " + tiempo1);
-                //FIN DE LA CALCULADORA
-         
-        
+
+        //TESTING INORDER
+        //CALCULAR A DE TIEMPO EJECUCION
+        long TInicio1,
+                TFin1,
+                tiempo1;
+        TInicio1 = System.currentTimeMillis();
+        //inicio algoritmo
+        //   Controlador.ArbolProductosTotales.inOrderTemp(Controlador.ArbolProductosTotales.getRoot());
+
+        //fin algoritmo
+        TFin1 = System.currentTimeMillis();
+        tiempo1 = TFin1 - TInicio1;
+        System.out.println("Tiempo ms LinkedAVL<Producto> | op: InOrder() " + tiempo1);
+        //FIN DE LA CALCULADORA
+
         Paginador.cargarPilas();
     }
 
@@ -242,12 +239,12 @@ public class Usuario extends javax.swing.JFrame {
         Busqueda busqueda = new Busqueda();
         busqueda.setVisible(true);
         busqueda.setLocationRelativeTo(null);
-        
+
         java.net.URL url = ClassLoader.getSystemResource("imagenes/icon.png");
         Toolkit kit = Toolkit.getDefaultToolkit();
         Image img = kit.createImage(url);
         busqueda.setIconImage(img);
-        
+
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -255,12 +252,12 @@ public class Usuario extends javax.swing.JFrame {
         OrdenCompra ordencompra = new OrdenCompra();
         ordencompra.setVisible(true);
         ordencompra.setLocationRelativeTo(null);
-        
+
         java.net.URL url = ClassLoader.getSystemResource("imagenes/icon.png");
         Toolkit kit = Toolkit.getDefaultToolkit();
         Image img = kit.createImage(url);
         ordencompra.setIconImage(img);
-        
+
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -268,12 +265,12 @@ public class Usuario extends javax.swing.JFrame {
         OrdenVenta ordenventa = new OrdenVenta();
         ordenventa.setVisible(true);
         ordenventa.setLocationRelativeTo(null);
-        
+
         java.net.URL url = ClassLoader.getSystemResource("imagenes/icon.png");
         Toolkit kit = Toolkit.getDefaultToolkit();
         Image img = kit.createImage(url);
         ordenventa.setIconImage(img);
-        
+
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -281,12 +278,12 @@ public class Usuario extends javax.swing.JFrame {
         RealizarVenta venta = new RealizarVenta();
         venta.setVisible(true);
         venta.setLocationRelativeTo(null);
-        
+
         java.net.URL url = ClassLoader.getSystemResource("imagenes/icon.png");
         Toolkit kit = Toolkit.getDefaultToolkit();
         Image img = kit.createImage(url);
         venta.setIconImage(img);
-        
+
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -294,12 +291,12 @@ public class Usuario extends javax.swing.JFrame {
         RecibirCompra realizarcompra = new RecibirCompra();
         realizarcompra.setVisible(true);
         realizarcompra.setLocationRelativeTo(null);
-        
+
         java.net.URL url = ClassLoader.getSystemResource("imagenes/icon.png");
         Toolkit kit = Toolkit.getDefaultToolkit();
         Image img = kit.createImage(url);
         realizarcompra.setIconImage(img);
-        
+
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
