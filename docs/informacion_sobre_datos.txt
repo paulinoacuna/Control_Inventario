@@ -1,0 +1,15 @@
+INFORMACION SOBRE DE DATOS
+
+*SOBRE USO DE DATOS:
+	el archivo "registros.sql" contiene todos los datos de prueba del proyecto, 
+	contiene 500000 registros a la tabla "proveedor" del proyecto.
+	por cuestiones de tiempo de subida de estos datos a MySQL, hemos creado un
+	codigo multiplicador de estos datos dentro del programa en la clase "Ejecucion" dentro
+	del metodo "main" para poder hacer la prueba con 1 millon y 10 millones de datos. 
+	cada registro tiene su unica llave primaria.
+
+* SOBRE LIMITE DE MEMORIA:
+	En El momento de ingresar los 10 millones de datos asl programa, ocurrió la siguiente excepcion
+	"java.lang.OutOfMemoryError: GC overhead limit exceeded" . Consultando la naturaleza de este error,
+	nos hemos informado que sucede por esceder el limite de memoria RAM en tiempo de ejecucion.
+	Por este motivo hemos realizado el ultimo Test con 5000000 de datos.
