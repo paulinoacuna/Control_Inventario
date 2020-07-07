@@ -1,0 +1,21 @@
+INSERT INTO `provedor` (`id`,`nombre`) VALUES (1,"fermentum"),(2,"Nunc"),(3,"egestas"),(4,"Phasellus"),(5,"dapibus"),(6,"eu"),(7,"libero."),(8,"inceptos"),(9,"est"),(10,"et");
+INSERT INTO `provedor` (`id`,`nombre`) VALUES (11,"ultricies"),(12,"ut"),(13,"Cras"),(14,"tortor"),(15,"nunc"),(16,"risus."),(17,"euismod"),(18,"id,"),(19,"velit"),(20,"varius");
+INSERT INTO `provedor` (`id`,`nombre`) VALUES (21,"enim,"),(22,"diam"),(23,"dui"),(24,"faucibus"),(25,"rutrum"),(26,"libero"),(27,"nulla."),(28,"nulla"),(29,"metus"),(30,"neque");
+INSERT INTO `provedor` (`id`,`nombre`) VALUES (31,"sociis"),(32,"tellus."),(33,"Phasellus"),(34,"cursus"),(35,"quis"),(36,"tempor"),(37,"vulputate"),(38,"Integer"),(39,"neque"),(40,"a");
+INSERT INTO `provedor` (`id`,`nombre`) VALUES (41,"ut,"),(42,"aptent"),(43,"lectus."),(44,"dapibus"),(45,"quam"),(46,"Mauris"),(47,"amet"),(48,"accumsan"),(49,"Phasellus"),(50,"parturient");
+INSERT INTO `provedor` (`id`,`nombre`) VALUES (51,"sit"),(52,"nec,"),(53,"ligula"),(54,"at"),(55,"Sed"),(56,"amet"),(57,"Vestibulum"),(58,"odio."),(59,"Morbi"),(60,"lobortis");
+INSERT INTO `provedor` (`id`,`nombre`) VALUES (61,"Nullam"),(62,"accumsan"),(63,"tempor"),(64,"egestas"),(65,"sit"),(66,"lacinia"),(67,"metus."),(68,"lorem"),(69,"diam"),(70,"Donec");
+INSERT INTO `provedor` (`id`,`nombre`) VALUES (71,"feugiat."),(72,"vehicula"),(73,"Proin"),(74,"rutrum,"),(75,"magna"),(76,"nibh"),(77,"arcu"),(78,"consectetuer"),(79,"cursus"),(80,"Aliquam");
+INSERT INTO `provedor` (`id`,`nombre`) VALUES (81,"ac"),(82,"sapien."),(83,"Nulla"),(84,"eu"),(85,"pede"),(86,"fringilla"),(87,"sed"),(88,"dictum"),(89,"a,"),(90,"amet,");
+INSERT INTO `provedor` (`id`,`nombre`) VALUES (91,"In"),(92,"risus"),(93,"ad"),(94,"ultrices"),(95,"Maecenas"),(96,"Nullam"),(97,"Etiam"),(98,"Integer"),(99,"egestas."),(100,"dolor");
+
+INSERT INTO `pedido` (`id`,`Provedor_id`,`Almacen_id`) VALUES (1,65,2),(2,92,7),(3,4,9),(4,36,4),(5,36,6),(6,56,8),(7,11,5),(8,51,6),(9,53,8),(10,46,6);
+INSERT INTO `pedido` (`id`,`Provedor_id`,`Almacen_id`) VALUES (11,59,4),(12,49,1),(13,28,3),(14,27,9),(15,45,3),(16,76,8),(17,60,6),(18,18,3),(19,38,1),(20,70,8);
+INSERT INTO `pedido` (`id`,`Provedor_id`,`Almacen_id`) VALUES (21,77,4),(22,89,1),(23,99,10),(24,74,8),(25,4,4),(26,89,2),(27,16,10),(28,43,7),(29,31,3),(30,88,10);
+INSERT INTO `pedido` (`id`,`Provedor_id`,`Almacen_id`) VALUES (31,40,4),(32,20,6),(33,53,9),(34,30,9),(35,44,6),(36,6,4),(37,100,3),(38,47,2),(39,79,2),(40,2,4);
+INSERT INTO `pedido` (`id`,`Provedor_id`,`Almacen_id`) VALUES (41,53,10),(42,87,4),(43,2,3),(44,84,5),(45,28,4),(46,76,10),(47,25,8),(48,90,3),(49,19,9),(50,89,5);
+INSERT INTO `pedido` (`id`,`Provedor_id`,`Almacen_id`) VALUES (51,91,1),(52,30,2),(53,67,3),(54,39,5),(55,24,9),(56,93,2),(57,37,5),(58,19,10),(59,100,1),(60,36,8);
+INSERT INTO `pedido` (`id`,`Provedor_id`,`Almacen_id`) VALUES (61,66,1),(62,70,7),(63,42,10),(64,100,5),(65,30,2),(66,95,8),(67,18,2),(68,35,2),(69,84,2),(70,71,7);
+INSERT INTO `pedido` (`id`,`Provedor_id`,`Almacen_id`) VALUES (71,87,5),(72,78,1),(73,11,8),(74,20,3),(75,38,2),(76,81,1),(77,61,5),(78,80,7),(79,73,4),(80,36,2);
+INSERT INTO `pedido` (`id`,`Provedor_id`,`Almacen_id`) VALUES (81,20,4),(82,85,4),(83,32,7),(84,43,1),(85,15,2),(86,100,5),(87,71,4),(88,95,5),(89,27,4),(90,71,10);
+INSERT INTO `pedido` (`id`,`Provedor_id`,`Almacen_id`) VALUES (91,36,6),(92,95,7),(93,40,3),(94,95,10),(95,63,6),(96,56,3),(97,57,2),(98,62,3),(99,44,1),(100,4,3);
