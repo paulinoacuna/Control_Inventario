@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Rama 2 creada Version 2.0
 package logic;
 
 import baseDatos.*;
 import data.*;
-import estructuraDatos.LinkedList;
+import estructuraDatos.*;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -20,56 +16,40 @@ public class Ejecucion {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+   // public static void main(String[] args) {
 
-        Conexion con = new Conexion();
+        // Controlador.cargarBaseDatos();
+        //Controlador.cargarPaginador();
+        //arbol.inOrder(arbol.getRoot(),1,5);
+        /*
 
-        Statement st;
-        ResultSet rs;
-        try {
+        //CALCULARA DE TIEMPO EJECUCION
+        long TInicio, TFin, tiempo;
+        TInicio = System.currentTimeMillis();
+        //inicio algoritmo
+        NodoAVL element = arbol.find(arbol.getRoot(), productoW);
+        System.out.println(element.getKey());
+        //fin algoritmo
+        TFin = System.currentTimeMillis();
+        tiempo = TFin - TInicio;
+        System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
 
-            st = con.conex.createStatement();
+        NodoAVL elemento = arbol.find(arbol.getRoot(), productoW);
 
-            rs = st.executeQuery("select * from proveedor");
+        Producto productoEncontrado = (Producto) elemento.getKey();
 
-            int counter = 1;
-            int counter2 = 1;
+        productoEncontrado.reducirStock(productoW);
 
-            //registros de entrada seteados, por defecto entran 100.000
-            while (rs.next() && counter <= 10000) {
-                //System.out.println(rs.getInt("total"));
-
-                Proveedor provedorA = new Proveedor(rs.getInt("llave"), rs.getString("nombre"));
-
-                Controlador.ProvedoresTotales.agregarDelante(provedorA);
-
-                counter++;
-            }
-            //multiplicador de data en tiempo de ejecucion
-            //seteado a 400.000 registros más
-            while (counter > 100000 && counter2 <= 1) {
-
-                Proveedor provedorB = new Proveedor(rs.getInt("llave") + counter2, rs.getString("nombre"));
-                Controlador.ProvedoresTotales.agregarDelante(provedorB);
-                counter2++;
-
-            }
-
-            con.conex.close();
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-            System.out.println("No se ha logrado conectar con MySQL. Esto "
-                    + "no afecta el funcionamiento del programa");
-        }
-
-        Controlador.bienvenida();
-
+        arbol.insert(arbol.getRoot(), productoEncontrado);
+        
+         */
+        //FIN DE LA CALCULADORA
+        //Controlador.bienvenida();
         /* //CALCULARA DE TIEMPO EJECUCION
                     long TInicio, TFin,tiempo;
                     TInicio = System.currentTimeMillis();
                     //inicio algoritmo
-                    ProvedoresTotales.buscar(proveedorB);
+                        ProvedoresTotales.buscar(proveedorB);
                     //fin algoritmo
                     TFin = System.currentTimeMillis();
                     tiempo = TFin - TInicio;
@@ -77,5 +57,4 @@ public class Ejecucion {
             //FIN DE LA CALCULADORA
          */
     }
-
-}
+//}

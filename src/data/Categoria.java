@@ -10,14 +10,14 @@ package data;
  * @author juanc
  */
 public class Categoria {
+
     private int codigoCategoria;
     private String nombreCategoria;
-    private SubCategoria subCategoria;
 
-    public Categoria(int codigoCategoria, String nombreCategoria, SubCategoria subCategoria) {
+    public Categoria(int codigoCategoria, String nombreCategoria) {
         this.codigoCategoria = codigoCategoria;
         this.nombreCategoria = nombreCategoria;
-        this.subCategoria = subCategoria;
+
     }
 
     public int getCodigoCategoria() {
@@ -36,14 +36,9 @@ public class Categoria {
         this.nombreCategoria = nombreCategoria;
     }
 
-    public SubCategoria getSubCategoria() {
-        return subCategoria;
+    @Override
+    public String toString() {
+        return nombreCategoria;
     }
 
-    public void setSubCategoria(SubCategoria subCategoria) {
-        this.subCategoria = subCategoria;
-    }
-    
-    
-    
 }

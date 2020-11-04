@@ -9,27 +9,27 @@ package data;
  *
  * @author juanc
  */
-public class Producto {
+public class Producto implements Comparable {
 
     private int codigoProducto;
     private String descripcion;
     private int precioVenta;
     private int precioCompra;
     private int cantidadUnidades;
-    private Categoria categoria;
-    private boolean agotado;
+    private SubCategoria subCategoria;
+    public static boolean compararPorCantidad = false;
+
     private double descuento = 0;
 
     public Producto(int codigoProducto, String descripcion, int precioVenta, int precioCompra,
-            int cantidadUnidades, Categoria categoria, boolean agotado) {
+            int cantidadUnidades, SubCategoria subCategoria) {
         this.codigoProducto = codigoProducto;
         this.descripcion = descripcion;
         this.precioVenta = precioVenta;
         this.precioCompra = precioCompra;
         this.cantidadUnidades = cantidadUnidades;
-        this.categoria = categoria;
-        this.agotado = agotado;
-        
+        this.subCategoria = subCategoria;
+
     }
 
     public int getCodigoProducto() {
@@ -48,12 +48,12 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public SubCategoria getSubCategoria() {
+        return subCategoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setSubCategoria(SubCategoria subCategoria) {
+        this.subCategoria = subCategoria;
     }
 
     public int getPrecioVenta() {
@@ -80,20 +80,81 @@ public class Producto {
         this.cantidadUnidades = cantidadUnidades;
     }
 
-    public boolean isAgotado() {
-        return agotado;
-    }
-
-    public void setAgotado(boolean agotado) {
-        this.agotado = agotado;
-    }
-
     public double getDescuento() {
         return descuento;
     }
 
     public void setDescuento(double descuento) {
         this.descuento = descuento;
+    }
+
+    public void aumentarStock(Producto producto) {
+
+        this.cantidadUnidades += producto.cantidadUnidades;
+
+    }
+
+    public void reducirStock(Producto producto) {
+        if (this.cantidadUnidades > 0) {
+            this.cantidadUnidades -= producto.cantidadUnidades;
+        } else {
+            System.out.println("Producto Agotado");
+        }
+
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Producto other = (Producto) o;
+
+        if (this.codigoProducto == other.codigoProducto) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Producto other = (Producto) o;
+        if (!compararPorCantidad) {
+
+            if (this.codigoProducto > other.codigoProducto) {
+                return 1;
+            } else if (this.codigoProducto < other.codigoProducto) {
+                return -1;
+
+            }
+            return 0;
+
+        } else {
+
+            if (this.cantidadUnidades >= other.cantidadUnidades) {
+                return 1;
+            } else if (this.cantidadUnidades < other.cantidadUnidades) {
+                return -1;
+
+            }
+            return 0;
+
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return codigoProducto
+                + "| |" + descripcion + "| |"
+                + precioVenta + "| |" + precioCompra
+                + "| |" + cantidadUnidades + "| |"
+                + subCategoria + "| |" + descuento;
     }
 
 }

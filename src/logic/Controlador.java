@@ -5,9 +5,13 @@
  */
 package logic;
 
+import baseDatos.Conexion;
 import data.*;
 import estructuraDatos.*;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Scanner;
+import static logic.Paginador.*;
 
 /**
  *
@@ -15,15 +19,29 @@ import java.util.Scanner;
  */
 public class Controlador {
 
+    public static Categoria categoria = new Categoria(1, "Lacteos");
+    public static SubCategoria subCategoria = new SubCategoria(1, "yogures", categoria);
+    private static Producto producto = new Producto(1, "boyourt oreo 250g", 2800, 2000, 14, subCategoria);
+    public static LinkedAVL<Producto> ArbolProductosTotales = new LinkedAVL<>(producto);
+
     //testing con la clase Proveedor
     public static LinkedList<Proveedor> ProvedoresTotales = new LinkedList();
-
-    public static LinkedList<Producto> ProductosTotales = new LinkedList();
+    //public static LinkedList<Producto> ProductosTotales = new LinkedList();
+    //use hashtable en PedidosTotales
     public static LinkedList<Pedido> PedidosTotales = new LinkedList();
-    public static LinkedList<Empleado> EmpleadosTotales = new LinkedList();
-    public static LinkedList<Almacen> AlmacenesTotales = new LinkedList();
-    public static LinkedList<Categoria> CategoriasTotales = new LinkedList();
-    public static LinkedList<SubCategoria> SubCategoriasTotales = new LinkedList();
+    public static LinkedQueue<CarritoVenta> ColaDeVentas = new LinkedQueue<CarritoVenta>();
+
+    //public static LinkedList<Empleado> EmpleadosTotales = new LinkedList();
+    //public static LinkedList<Almacen> AlmacenesTotales = new LinkedList();
+    //public static LinkedList<Categoria> CategoriasTotales = new LinkedList();
+    //public static LinkedList<SubCategoria> SubCategoriasTotales = new LinkedList();
+    public static void iniciarSesion() {
+
+    }
+
+    public static void registrarse() {
+
+    }
 
     public static void bienvenida() {
         boolean play = true;
@@ -189,14 +207,6 @@ public class Controlador {
                     break;
             }
         }
-
-    }
-
-    public static void iniciarSesion() {
-
-    }
-
-    public static void registrarse() {
 
     }
 

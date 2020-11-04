@@ -9,13 +9,16 @@ package data;
  *
  * @author juanc
  */
-public class SubCategoria  {
+public class SubCategoria {
+
     private int codigosubCategoria;
     private String nombresubCategoria;
+    private Categoria categoria;
 
-    public SubCategoria(int codigosubCategoria, String nombresubCategoria) {
+    public SubCategoria(int codigosubCategoria, String nombresubCategoria, Categoria categoria) {
         this.codigosubCategoria = codigosubCategoria;
         this.nombresubCategoria = nombresubCategoria;
+        this.categoria = categoria;
     }
 
     public int getCodigosubCategoria() {
@@ -33,10 +36,18 @@ public class SubCategoria  {
     public void setNombresubCategoria(String nombresubCategoria) {
         this.nombresubCategoria = nombresubCategoria;
     }
-    
-    
 
- 
-  
-    
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return nombresubCategoria;
+    }
+
 }
